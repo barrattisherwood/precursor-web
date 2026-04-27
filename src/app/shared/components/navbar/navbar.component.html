@@ -1,0 +1,15 @@
+<nav class="navbar" [class.scrolled]="scrolled()">
+  <a class="nav-logo" routerLink="/clusters">
+    PREC<span class="accent">U</span>RSOR
+  </a>
+
+  <div class="nav-links" [class.open]="menuOpen()">
+    <a class="nav-link" routerLink="/clusters" routerLinkActive="active" (click)="menuOpen.set(false)">Clusters</a>
+    <a class="nav-link" routerLink="/explore" routerLinkActive="active" (click)="menuOpen.set(false)">Explore</a>
+  </div>
+
+  <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="navbar-offset"></div>

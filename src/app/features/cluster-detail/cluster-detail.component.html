@@ -1,0 +1,80 @@
+@if (loading()) {
+  <div class="page-container"><div class="loading-indicator"></div></div>
+} @else if (error()) {
+  <div class="page-container">
+    <p class="error-msg">{{ error() }}</p>
+    <a routerLink="/clusters" class="back-link">← Back to clusters</a>
+  </div>
+} @else if (cluster()) {
+  <div class="page-container">
+    <a routerLink="/clusters" class="back-link">← Clusters</a>
+
+    <div class="detail-hero">
+      <app-score-bar [score]="cluster()!.hidden_score" />
+      <h1 class="page-heading" style="margin-top: 16px">{{ cluster()!.description || 'Synergy Cluster' }}</h1>
+
+      <div class="meta-row">
+        <span class="meta-item">
+          Hidden <em>{{ cluster()!.hidden_score.toFixed(2) }}</em>
+        </span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          Theoretical <em>{{ cluster()!.theoretical_score.toFixed(2) }}</em>
+        </span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">
+          <em>{{ usagePct }}%</em> ladder usage
+        </span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">Patch <em>{{ cluster()!.patch_version }}</em></span>
+      </div>
+
+      <div class="chip-row">
+        @for (facet of cluster()!.facets_represented; track facet) {
+          <app-facet-chip [facet]="$any(facet)" />
+        }
+        @if (!cluster()!.spirit_feasible) {
+          <span class="badge badge--warning">Spirit limit</span>
+        }
+        @if (cluster()!.combo_gated) {
+          <span class="badge badge--muted">Combo gated</span>
+        }
+        @if (cluster()!.league_scoped) {
+          <span class="badge badge--muted">League mechanic</span>
+        }
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="elements-section">
+      <h2 class="section-heading">Elements</h2>
+      <div class="element-list">
+        @for (el of elements; track el._id) {
+          <div class="element-row" (click)="navigateToElement(el._id)" (keydown.enter)="navigateToElement(el._id)" tabindex="0" role="button">
+            <app-facet-chip [facet]="el.facet" />
+            <span class="element-name">{{ el.name }}</span>
+            <span class="element-keywords">{{ el.keywords.join(' · ') }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    @if (cluster()!.edges.length > 0) {
+      <div class="divider"></div>
+      <section class="edges-section">
+        <h2 class="section-heading">Synergy edges</h2>
+        <div class="edge-list">
+          @for (edge of cluster()!.edges; track $index) {
+            <div class="edge-row">
+              <span class="edge-type" [class]="'edge-type--' + edge.edge_type.replace('_', '-')">
+                {{ edge.edge_type.replace('_', ' ') }}
+              </span>
+              <span class="edge-weight">{{ edge.weight.toFixed(2) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+}

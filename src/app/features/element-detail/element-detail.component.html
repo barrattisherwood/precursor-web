@@ -1,0 +1,63 @@
+@if (loading()) {
+  <div class="page-container"><div class="loading-indicator"></div></div>
+} @else if (error()) {
+  <div class="page-container">
+    <p class="error-msg">{{ error() }}</p>
+    <a routerLink="/clusters" class="back-link">← Back to clusters</a>
+  </div>
+} @else if (element()) {
+  <div class="page-container">
+    <a routerLink="/clusters" class="back-link">← Clusters</a>
+
+    <div class="detail-hero">
+      <app-facet-chip [facet]="element()!.facet" />
+      <h1 class="page-heading" style="margin-top: 12px">{{ element()!.name }}</h1>
+
+      @if (element()!.keywords.length > 0) {
+        <p class="keywords">{{ element()!.keywords.join(' · ') }}</p>
+      }
+    </div>
+
+    <div class="divider"></div>
+
+    @if (element()!.stats.length > 0) {
+      <section class="stats-section">
+        <h2 class="section-heading">Stats</h2>
+        <div class="stat-list">
+          @for (stat of element()!.stats; track stat.stat_id) {
+            <div class="stat-row">
+              <span class="stat-id">{{ stat.stat_id }}</span>
+              <span class="stat-modifier" [class]="'modifier--' + stat.modifier_type">{{ stat.modifier_type }}</span>
+              <span class="stat-value">{{ stat.value_min }}{{ stat.value_min !== stat.value_max ? '–' + stat.value_max : '' }}</span>
+              @if (stat.condition) {
+                <span class="stat-condition">{{ stat.condition }}</span>
+              }
+            </div>
+          }
+        </div>
+      </section>
+      <div class="divider"></div>
+    }
+
+    @if (edges().length > 0) {
+      <section class="edges-section">
+        <h2 class="section-heading">Synergy connections</h2>
+        <div class="edge-list">
+          @for (edge of edges(); track edge._id) {
+            @let peer = peerElement(edge);
+            @if (peer) {
+              <div class="edge-row">
+                <app-facet-chip [facet]="peer.facet" />
+                <a [routerLink]="['/elements', peer._id]" class="peer-name">{{ peer.name }}</a>
+                <span class="edge-type" [class]="'edge-type--' + edge.edge_type.replace('_', '-')">
+                  {{ edge.edge_type.replace('_', ' ') }}
+                </span>
+                <span class="edge-weight">{{ edge.weight.toFixed(2) }}</span>
+              </div>
+            }
+          }
+        </div>
+      </section>
+    }
+  </div>
+}

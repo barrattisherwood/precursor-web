@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /clusters
+Allow: /clusters/
+Allow: /elements/
+Disallow: /explore
+Disallow: /api/
+Sitemap: https://precursor.nexus/sitemap.xml

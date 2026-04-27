@@ -1,0 +1,32 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { ClustersResponse, ClusterFilters, SynergyCluster } from '../types/cluster.types';
+
+@Injectable({ providedIn: 'root' })
+export class ClusterService {
+  private readonly http = inject(HttpClient);
+  private readonly base = environment.apiBase;
+
+  getClusters(filters: ClusterFilters, page = 0): Promise<ClustersResponse> {
+    const params: Record<string, string> = {
+      sort: filters.sortBy,
+      limit: '20',
+      offset: String(page * 20),
+      league_scoped: String(filters.leagueScoped),
+    };
+    if (filters.facet) params['facet'] = filters.facet;
+    if (filters.spiritFeasible) params['spirit_feasible'] = 'true';
+
+    return firstValueFrom(
+      this.http.get<ClustersResponse>(`${this.base}/clusters`, { params }),
+    );
+  }
+
+  getCluster(id: string): Promise<SynergyCluster> {
+    return firstValueFrom(
+      this.http.get<SynergyCluster>(`${this.base}/clusters/${id}`),
+    );
+  }
+}

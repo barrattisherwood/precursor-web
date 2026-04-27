@@ -1,0 +1,67 @@
+@use '../../../styles/typography' as *;
+@use '../../../styles/layout' as *;
+@use '../../../styles/breakpoints' as *;
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-lg;
+  padding: $space-lg 0;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: $space-lg;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  &--toggles {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: $space-sm;
+  }
+}
+
+.filter-label {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-mono;
+  text-transform: uppercase;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1px;
+}
+
+.btn-filter {
+  font-family: $font-ui;
+  font-size: $text-micro;
+  letter-spacing: $ls-wide;
+  text-transform: uppercase;
+  padding: 6px $space-md;
+  border: 1px solid var(--c-border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease;
+
+  &:hover {
+    color: var(--c-text-primary);
+    background: var(--c-raised);
+    border-color: var(--c-border-hover);
+  }
+
+  &.active {
+    color: var(--c-ash);
+    border-color: var(--c-ash);
+    background: rgba(123, 163, 184, 0.08);
+  }
+}
+
+.btn-toggle {
+  @extend .btn-filter;
+}

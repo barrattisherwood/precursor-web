@@ -1,0 +1,24 @@
+<div class="page-container">
+  <h1 class="page-heading">Hidden <em>Synergies</em></h1>
+  <p class="page-subheading">Underplayed build clusters · sorted by discovery potential</p>
+
+  <app-cluster-filters />
+
+  @if (store.loading()) {
+    <div class="loading-indicator"></div>
+  }
+
+  @if (!store.loading() && !store.hasResults()) {
+    <p class="empty-state">No clusters match the current filters.</p>
+  }
+
+  <div class="cluster-list">
+    @for (cluster of store.clusters(); track cluster._id) {
+      <app-cluster-card [cluster]="cluster" />
+    }
+  </div>
+
+  @if (store.total() > 0) {
+    <p class="result-count">{{ store.total() }} clusters</p>
+  }
+</div>

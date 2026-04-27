@@ -1,0 +1,63 @@
+<div class="explorer-layout">
+  <div class="explorer-sidebar">
+    <h1 class="page-heading">Synergy <em>Explorer</em></h1>
+    <p class="page-subheading">Click any element to pivot the graph</p>
+
+    <div class="search-wrap">
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Search elements..."
+        [value]="searchQuery()"
+        (input)="searchQuery.set($any($event.target).value); onSearch()"
+        autocomplete="off"
+      />
+      @if (searching()) {
+        <span class="search-spinner"></span>
+      }
+    </div>
+
+    @if (searchResults().length > 0) {
+      <div class="search-results">
+        @for (el of searchResults(); track el._id) {
+          <button class="result-row" (click)="selectElement(el)">
+            <app-facet-chip [facet]="el.facet" />
+            <span class="result-name">{{ el.name }}</span>
+          </button>
+        }
+      </div>
+    }
+
+    @if (store.centre()) {
+      <div class="centre-info">
+        <div class="divider"></div>
+        <p class="centre-label">Viewing</p>
+        <p class="centre-name">{{ store.centre()!.name }}</p>
+        <app-facet-chip [facet]="store.centre()!.facet" />
+        <p class="centre-stats">
+          {{ store.nodes().length }} nodes · {{ store.links().length }} edges
+        </p>
+      </div>
+    }
+  </div>
+
+  <div class="explorer-graph">
+    @if (store.loading()) {
+      <div class="graph-loading"><div class="loading-indicator"></div></div>
+    }
+
+    @if (!store.loading() && store.nodes().length === 0 && !store.centre()) {
+      <div class="graph-empty">
+        <p>Search for an element to begin exploring</p>
+      </div>
+    }
+
+    @if (isBrowser && store.nodes().length > 0) {
+      <app-d3-graph
+        [nodes]="store.nodes()"
+        [links]="store.links()"
+        (nodeClicked)="onNodeClicked($event)"
+      />
+    }
+  </div>
+</div>

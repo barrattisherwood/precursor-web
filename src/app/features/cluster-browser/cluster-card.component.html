@@ -1,0 +1,27 @@
+<article class="cluster-card" (click)="navigate()" (keydown.enter)="navigate()" tabindex="0" role="button">
+  <app-score-bar [score]="cluster().hidden_score" />
+
+  <h2 class="card-title">{{ cluster().description || 'Synergy Cluster' }}</h2>
+
+  <p class="card-description">
+    @for (el of elements; track el._id) {
+      {{ el.name }}@if (!$last) { · }
+    }
+  </p>
+
+  <div class="card-footer">
+    <div class="chip-row">
+      @for (facet of cluster().facets_represented; track facet) {
+        <app-facet-chip [facet]="$any(facet)" />
+      }
+    </div>
+    <span class="card-score">{{ hiddenScore }}</span>
+  </div>
+
+  @if (!cluster().spirit_feasible) {
+    <span class="badge badge--warning">Spirit limit</span>
+  }
+  @if (cluster().combo_gated) {
+    <span class="badge badge--muted">Combo gated</span>
+  }
+</article>
