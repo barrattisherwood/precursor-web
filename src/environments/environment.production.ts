@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiBase: 'https://api.precursor.nexus/api',
+  apiBase: 'https://precursor-api-production.up.railway.app/api',
   sentryDsn: '',
 };
