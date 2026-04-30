@@ -10,6 +10,7 @@
         placeholder="Search elements..."
         [value]="searchQuery()"
         (input)="searchQuery.set($any($event.target).value); onSearch()"
+        (keydown.escape)="clearSearch()"
         autocomplete="off"
       />
       @if (searching()) {
@@ -37,6 +38,9 @@
         <p class="centre-stats">
           {{ store.nodes().length }} nodes · {{ store.links().length }} edges
         </p>
+        <a class="detail-link" [routerLink]="['/elements', store.centre()!._id]">
+          View details →
+        </a>
       </div>
     }
   </div>

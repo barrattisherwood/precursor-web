@@ -131,6 +131,20 @@
   margin-top: $space-sm;
 }
 
+.detail-link {
+  display: inline-block;
+  margin-top: $space-md;
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-ash);
+  letter-spacing: $ls-mono;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+
+  &:hover { opacity: 0.7; }
+}
+
 @include mobile {
   .explorer-layout {
     grid-template-columns: 1fr;

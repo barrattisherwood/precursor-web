@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://precursor-api-production.up.railway.app",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

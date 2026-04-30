@@ -1,7 +1,8 @@
-import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { ExplorerStore } from '../../shared/state/explorer.store';
 import { ElementService } from '../../shared/services/element.service';
 import { Element } from '../../shared/types/element.types';
@@ -11,15 +12,16 @@ import { GraphNode } from './d3-graph/d3-graph.service';
 
 @Component({
   selector: 'app-synergy-explorer',
-  imports: [FormsModule, D3GraphComponent, FacetChipComponent],
+  imports: [FormsModule, RouterLink, D3GraphComponent, FacetChipComponent],
   templateUrl: './synergy-explorer.component.html',
   styleUrl: './synergy-explorer.component.scss',
 })
-export class SynergyExplorerComponent {
+export class SynergyExplorerComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   readonly store = inject(ExplorerStore);
   private readonly elementService = inject(ElementService);
   private readonly title = inject(Title);
+  private readonly route = inject(ActivatedRoute);
 
   readonly searchQuery = signal('');
   readonly searchResults = signal<Element[]>([]);
@@ -31,6 +33,13 @@ export class SynergyExplorerComponent {
     this.title.setTitle('Synergy Explorer — Precursor');
   }
 
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if (id && isPlatformBrowser(this.platformId)) {
+      this.store.pivot(id);
+    }
+  }
+
   get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -40,6 +49,11 @@ export class SynergyExplorerComponent {
     const q = this.searchQuery();
     if (q.length < 2) { this.searchResults.set([]); return; }
     this.debounceTimer = setTimeout(() => this.runSearch(q), 250);
+  }
+
+  clearSearch(): void {
+    this.searchQuery.set('');
+    this.searchResults.set([]);
   }
 
   private async runSearch(q: string): Promise<void> {

@@ -9,7 +9,11 @@
   }
 
   @if (!store.loading() && !store.hasResults()) {
-    <p class="empty-state">No clusters match the current filters.</p>
+    @if (store.total() === 0) {
+      <p class="empty-state">Clusters are computed nightly — check back soon.</p>
+    } @else {
+      <p class="empty-state">No clusters match the current filters.</p>
+    }
   }
 
   <div class="cluster-list">

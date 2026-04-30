@@ -12,6 +12,9 @@
     <div class="detail-hero">
       <app-facet-chip [facet]="element()!.facet" />
       <h1 class="page-heading" style="margin-top: 12px">{{ element()!.name }}</h1>
+      <a class="explore-link" [routerLink]="['/explore']" [queryParams]="{ id: element()!._id }">
+        Explore in graph →
+      </a>
 
       @if (element()!.keywords.length > 0) {
         <p class="keywords">{{ element()!.keywords.join(' · ') }}</p>
