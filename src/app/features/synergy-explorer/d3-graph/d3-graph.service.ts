@@ -115,12 +115,24 @@ export class D3GraphService {
       .attr('pointer-events', 'none')
       .style('display', 'none');
 
+    let hoveredNode: GraphNode | null = null;
+
+    const positionHoverLabel = (d: GraphNode) => {
+      const r = d.weight >= 0.4 ? 26 : 20;
+      hoverLabel.attr('x', d.x!).attr('y', d.y! + r);
+    };
+
     node
       .on('mouseenter', (_, d) => {
         if (d.id === pivotId) return;
+        hoveredNode = d;
         hoverLabel.style('display', null).text(d.name);
+        positionHoverLabel(d);
       })
-      .on('mouseleave', () => hoverLabel.style('display', 'none'));
+      .on('mouseleave', () => {
+        hoveredNode = null;
+        hoverLabel.style('display', 'none');
+      });
 
     this.simulation.on('tick', () => {
       link
@@ -130,13 +142,9 @@ export class D3GraphService {
         .attr('y2', d => (d.target as GraphNode).y!);
       node.attr('cx', d => d.x!).attr('cy', d => d.y!);
       pivotLabel.attr('x', d => d.x!).attr('y', d => d.y! + 34);
-      // Update hover label position to follow the hovered node
-      const hovered = nodesCopy.find(n =>
-        n.name === (hoverLabel.text() || '') && n.id !== pivotId,
-      );
-      if (hovered) {
-        const r = hovered.weight >= 0.4 ? 26 : 20;
-        hoverLabel.attr('x', hovered.x!).attr('y', hovered.y! + r);
+      if (hoveredNode) {
+        const r = hoveredNode.weight >= 0.4 ? 26 : 20;
+        hoverLabel.attr('x', hoveredNode.x!).attr('y', hoveredNode.y! + r);
       }
     });
   }
