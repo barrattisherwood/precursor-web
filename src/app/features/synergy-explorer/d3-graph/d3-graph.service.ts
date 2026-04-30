@@ -61,12 +61,21 @@ export class D3GraphService {
         .on('zoom', ({ transform }) => g.attr('transform', transform)),
     );
 
-    const nodesCopy = nodes.map(n => ({ ...n }));
+    // Pre-position nodes radially so the simulation settles without exploding from origin
+    const angleStep = (2 * Math.PI) / Math.max(nodes.length, 1);
+    const radius = Math.min(width, height) * 0.3;
+    const nodesCopy: GraphNode[] = nodes.map((n, i) => ({
+      ...n,
+      x: width / 2 + radius * Math.cos(i * angleStep),
+      y: height / 2 + radius * Math.sin(i * angleStep),
+    }));
     const linksCopy = links.map(l => ({ ...l }));
 
     this.simulation = d3.forceSimulation(nodesCopy)
+      .alpha(0.4)
+      .alphaDecay(0.04)
       .force('link', d3.forceLink<GraphNode, GraphLink>(linksCopy).id(d => d.id).distance(120))
-      .force('charge', d3.forceManyBody().strength(-400))
+      .force('charge', d3.forceManyBody().strength(-300))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('collision', d3.forceCollide(40));
 
@@ -86,14 +95,32 @@ export class D3GraphService {
       .call(this.drag() as any)
       .on('click', (_, d) => this.onNodeClick(d));
 
-    g.append('g').selectAll('text')
-      .data(nodesCopy).join('text')
+    const pivotId = nodesCopy.find(n => n.weight >= 1.0)?.id;
+
+    // Permanent label only for the pivot node
+    const pivotLabel = g.append('g').selectAll('text.pivot')
+      .data(nodesCopy.filter(n => n.id === pivotId)).join('text')
       .text(d => d.name)
+      .attr('font-size', 12)
+      .attr('font-weight', 'bold')
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#e8d5a3')
+      .attr('pointer-events', 'none');
+
+    // Hover label for other nodes
+    const hoverLabel = g.append('text')
       .attr('font-size', 11)
       .attr('text-anchor', 'middle')
-      .attr('dy', 30)
       .attr('fill', '#ccc')
-      .attr('pointer-events', 'none');
+      .attr('pointer-events', 'none')
+      .style('display', 'none');
+
+    node
+      .on('mouseenter', (_, d) => {
+        if (d.id === pivotId) return;
+        hoverLabel.style('display', null).text(d.name);
+      })
+      .on('mouseleave', () => hoverLabel.style('display', 'none'));
 
     this.simulation.on('tick', () => {
       link
@@ -102,6 +129,15 @@ export class D3GraphService {
         .attr('x2', d => (d.target as GraphNode).x!)
         .attr('y2', d => (d.target as GraphNode).y!);
       node.attr('cx', d => d.x!).attr('cy', d => d.y!);
+      pivotLabel.attr('x', d => d.x!).attr('y', d => d.y! + 34);
+      // Update hover label position to follow the hovered node
+      const hovered = nodesCopy.find(n =>
+        n.name === (hoverLabel.text() || '') && n.id !== pivotId,
+      );
+      if (hovered) {
+        const r = hovered.weight >= 0.4 ? 26 : 20;
+        hoverLabel.attr('x', hovered.x!).attr('y', hovered.y! + r);
+      }
     });
   }
 
