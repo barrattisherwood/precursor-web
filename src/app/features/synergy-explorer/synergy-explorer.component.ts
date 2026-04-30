@@ -25,6 +25,8 @@ export class SynergyExplorerComponent {
   readonly searchResults = signal<Element[]>([]);
   readonly searching = signal(false);
 
+  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
   constructor() {
     this.title.setTitle('Synergy Explorer — Precursor');
   }
@@ -33,9 +35,14 @@ export class SynergyExplorerComponent {
     return isPlatformBrowser(this.platformId);
   }
 
-  async onSearch(): Promise<void> {
+  onSearch(): void {
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
     const q = this.searchQuery();
     if (q.length < 2) { this.searchResults.set([]); return; }
+    this.debounceTimer = setTimeout(() => this.runSearch(q), 250);
+  }
+
+  private async runSearch(q: string): Promise<void> {
     this.searching.set(true);
     try {
       const results = await this.elementService.search(q);
