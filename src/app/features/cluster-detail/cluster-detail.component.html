@@ -47,6 +47,38 @@
 
     <div class="divider"></div>
 
+    <section class="breakdown-section">
+      <h2 class="section-heading">Score breakdown</h2>
+      <div class="breakdown-list">
+        <div class="breakdown-row">
+          <span class="breakdown-label">Theoretical score</span>
+          <span class="breakdown-value">{{ cluster()!.theoretical_score.toFixed(3) }}</span>
+          <span class="breakdown-note">raw edge weight sum</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="breakdown-label">Hiddennness</span>
+          <span class="breakdown-multiplier">×{{ hiddennessFactor().toFixed(3) }}</span>
+          <span class="breakdown-note">{{ usagePct }}% ladder usage — rewards underused synergies</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="breakdown-label">Diversity</span>
+          <span class="breakdown-multiplier">×{{ diversityBonus().toFixed(3) }}</span>
+          <span class="breakdown-note">{{ cluster()!.facets_represented.length }} facet{{ cluster()!.facets_represented.length !== 1 ? 's' : '' }} — rewards cross-facet clusters</span>
+        </div>
+        <div class="breakdown-row" [class.breakdown-row--inactive]="chainBonus() === 1.0">
+          <span class="breakdown-label">Chain bonus</span>
+          <span class="breakdown-multiplier">×{{ chainBonus().toFixed(1) }}</span>
+          <span class="breakdown-note">{{ chainBonus() > 1 ? 'condition chain present' : 'no condition chain' }}</span>
+        </div>
+        <div class="breakdown-row breakdown-row--total">
+          <span class="breakdown-label">Hidden score</span>
+          <span class="breakdown-value">{{ cluster()!.hidden_score.toFixed(3) }}</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
     <section class="elements-section">
       <h2 class="section-heading">Elements</h2>
       <div class="element-list">

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { ClusterService } from '../../shared/services/cluster.service';
@@ -23,6 +23,28 @@ export class ClusterDetailComponent implements OnInit {
   readonly cluster = signal<SynergyCluster | null>(null);
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
+
+  readonly hiddennessFactor = computed(() => {
+    const c = this.cluster();
+    if (!c) return 0;
+    return c.usage_pct === 0
+      ? 1.0
+      : Math.max(0, 1 - Math.log10(c.usage_pct * 100 + 1) / 2);
+  });
+
+  readonly diversityBonus = computed(() => {
+    const c = this.cluster();
+    if (!c) return 0;
+    const diversity = new Set(c.facets_represented).size;
+    return 0.8 + (diversity / 5) * 0.2;
+  });
+
+  readonly chainBonus = computed(() => {
+    const c = this.cluster();
+    if (!c) return 1.0;
+    return c.edges.some(e => e.edge_type === 'condition_chain' || e.edge_type === 'condition_amplification')
+      ? 1.1 : 1.0;
+  });
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id')!;
