@@ -33,4 +33,15 @@ export class ClusterCardComponent {
   get hiddenScore(): string {
     return this.cluster().hidden_score.toFixed(2);
   }
+
+  get edgeTypeLabel(): string {
+    const edges = this.cluster().edges;
+    if (edges.some(e => e.edge_type === 'condition_chain' || e.edge_type === 'condition_amplification')) {
+      return 'Condition chain';
+    }
+    if (edges.some(e => e.edge_type === 'stat_multiplication')) {
+      return 'Stat synergy';
+    }
+    return 'Keyword synergy';
+  }
 }

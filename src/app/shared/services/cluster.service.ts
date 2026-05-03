@@ -18,6 +18,7 @@ export class ClusterService {
     };
     if (filters.facet) params['facet'] = filters.facet;
     if (filters.spiritFeasible) params['spirit_feasible'] = 'true';
+    if (filters.edgeType) params['edge_type'] = filters.edgeType;
 
     return firstValueFrom(
       this.http.get<ClustersResponse>(`${this.base}/clusters`, { params }),

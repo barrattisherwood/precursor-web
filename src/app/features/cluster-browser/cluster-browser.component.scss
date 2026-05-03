@@ -14,6 +14,42 @@
   margin-top: $space-2xl;
 }
 
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: $space-xl;
+
+  .btn-page {
+    font-family: $font-data;
+    font-size: $text-label;
+    letter-spacing: $ls-mono;
+    color: var(--c-text-muted);
+    background: none;
+    border: 1px solid var(--c-border);
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover:not(:disabled) {
+      border-color: var(--c-border-hover);
+      color: var(--c-text-secondary);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  .page-info {
+    font-family: $font-data;
+    font-size: $text-label;
+    letter-spacing: $ls-mono;
+    color: var(--c-text-muted);
+  }
+}
+
 .result-count {
   font-family: $font-data;
   font-size: $text-micro;

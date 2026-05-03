@@ -18,6 +18,12 @@ const SORT_OPTIONS: { value: ClusterFilters['sortBy']; label: string }[] = [
   { value: 'usage_pct', label: 'Usage %' },
 ];
 
+const EDGE_TYPE_OPTIONS: { value: ClusterFilters['edgeType']; label: string }[] = [
+  { value: null, label: 'All types' },
+  { value: 'keyword_overlap', label: 'Keyword synergy' },
+  { value: 'condition_chain', label: 'Condition chain' },
+];
+
 @Component({
   selector: 'app-cluster-filters',
   imports: [FormsModule],
@@ -29,6 +35,7 @@ export class ClusterFiltersComponent {
 
   readonly facetOptions = FACET_OPTIONS;
   readonly sortOptions = SORT_OPTIONS;
+  readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
 
   get filters() { return this.store.filters(); }
 
@@ -46,5 +53,9 @@ export class ClusterFiltersComponent {
 
   toggleLeague(): void {
     this.store.updateFilter({ leagueScoped: !this.filters.leagueScoped });
+  }
+
+  setEdgeType(value: ClusterFilters['edgeType']): void {
+    this.store.updateFilter({ edgeType: value });
   }
 }

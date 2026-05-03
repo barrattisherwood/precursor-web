@@ -27,6 +27,20 @@
     </div>
   </div>
 
+  <div class="filter-group">
+    <label class="filter-label">Edge type</label>
+    <div class="btn-group">
+      @for (opt of edgeTypeOptions; track opt.value) {
+        <button
+          class="btn-filter"
+          [class.active]="filters.edgeType === opt.value"
+          (click)="setEdgeType(opt.value)">
+          {{ opt.label }}
+        </button>
+      }
+    </div>
+  </div>
+
   <div class="filter-group filter-group--toggles">
     <button class="btn-toggle" [class.active]="filters.spiritFeasible" (click)="toggleSpirit()">
       Spirit feasible

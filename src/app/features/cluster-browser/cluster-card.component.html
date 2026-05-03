@@ -14,6 +14,7 @@
       @for (facet of cluster().facets_represented; track facet) {
         <app-facet-chip [facet]="$any(facet)" />
       }
+      <span class="edge-type-badge">{{ edgeTypeLabel }}</span>
     </div>
     <span class="card-score">{{ hiddenScore }}</span>
   </div>

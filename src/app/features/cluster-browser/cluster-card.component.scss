@@ -59,6 +59,16 @@
   display: flex;
   gap: $space-xs;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.edge-type-badge {
+  font-family: $font-data;
+  font-size: $text-micro;
+  letter-spacing: $ls-mono;
+  color: var(--c-text-muted);
+  text-transform: uppercase;
+  margin-left: auto;
 }
 
 .card-score {

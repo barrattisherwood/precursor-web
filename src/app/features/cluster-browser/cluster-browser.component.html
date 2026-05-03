@@ -23,6 +23,11 @@
   </div>
 
   @if (store.total() > 0) {
+    <div class="pagination">
+      <button class="btn-page" [disabled]="!store.hasPrev()" (click)="store.prevPage()">← Prev</button>
+      <span class="page-info">{{ store.page() + 1 }} / {{ store.totalPages() }}</span>
+      <button class="btn-page" [disabled]="!store.hasNext()" (click)="store.nextPage()">Next →</button>
+    </div>
     <p class="result-count">{{ store.total() }} clusters</p>
   }
 </div>

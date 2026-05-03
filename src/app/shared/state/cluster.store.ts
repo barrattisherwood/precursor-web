@@ -15,13 +15,19 @@ export class ClusterStore {
     spiritFeasible: false,
     leagueScoped: false,
     sortBy: 'hidden_score',
+    edgeType: null,
   });
 
   readonly clusters = this._clusters.asReadonly();
   readonly total = this._total.asReadonly();
   readonly loading = this._loading.asReadonly();
   readonly filters = this._filters.asReadonly();
+  readonly page = this._page.asReadonly();
   readonly hasResults = computed(() => this._clusters().length > 0);
+  readonly pageSize = 20;
+  readonly totalPages = computed(() => Math.ceil(this._total() / this.pageSize));
+  readonly hasPrev = computed(() => this._page() > 0);
+  readonly hasNext = computed(() => this._page() < this.totalPages() - 1);
 
   async load(): Promise<void> {
     this._loading.set(true);
@@ -38,5 +44,19 @@ export class ClusterStore {
     this._page.set(0);
     this._filters.update(current => ({ ...current, ...partial }));
     this.load();
+  }
+
+  nextPage(): void {
+    if (this.hasNext()) {
+      this._page.update(p => p + 1);
+      this.load();
+    }
+  }
+
+  prevPage(): void {
+    if (this.hasPrev()) {
+      this._page.update(p => p - 1);
+      this.load();
+    }
   }
 }

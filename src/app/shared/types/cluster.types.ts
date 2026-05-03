@@ -30,6 +30,7 @@ export interface ClusterFilters {
   spiritFeasible: boolean;
   leagueScoped: boolean;
   sortBy: 'hidden_score' | 'theoretical_score' | 'usage_pct';
+  edgeType: 'keyword_overlap' | 'condition_chain' | null;
 }
 
 export interface ClustersResponse {
