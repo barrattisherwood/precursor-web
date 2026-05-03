@@ -30,4 +30,12 @@ export class ClusterService {
       this.http.get<SynergyCluster>(`${this.base}/clusters/${id}`),
     );
   }
+
+  getClustersForElement(elementId: string): Promise<ClustersResponse> {
+    return firstValueFrom(
+      this.http.get<ClustersResponse>(`${this.base}/clusters`, {
+        params: { element_id: elementId, sort: 'hidden_score', limit: '20', offset: '0', league_scoped: 'false' },
+      }),
+    );
+  }
 }

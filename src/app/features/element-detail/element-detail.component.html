@@ -12,18 +12,51 @@
     <div class="detail-hero">
       <app-facet-chip [facet]="element()!.facet" />
       <h1 class="page-heading" style="margin-top: 12px">{{ element()!.name }}</h1>
-      <a class="explore-link" [routerLink]="['/explore']" [queryParams]="{ id: element()!._id }">
-        Explore in graph →
-      </a>
 
       @if (element()!.keywords.length > 0) {
         <p class="keywords">{{ element()!.keywords.join(' · ') }}</p>
       }
+
+      <div class="meta-row">
+        @if (element()!.meta.spirit_cost) {
+          <span class="meta-pill">{{ element()!.meta.spirit_cost }} spirit</span>
+        }
+        @if (element()!.meta.gem_tags?.length) {
+          @for (tag of element()!.meta.gem_tags!; track tag) {
+            <span class="meta-pill">{{ tag }}</span>
+          }
+        }
+        @if (element()!.meta.ascendancy) {
+          <span class="meta-pill">{{ element()!.meta.ascendancy }}</span>
+        }
+        @if (element()!.combo_required) {
+          <span class="meta-pill meta-pill--warning">Combo required</span>
+        }
+      </div>
     </div>
 
-    <div class="divider"></div>
+    @if (element()!.produces.length > 0) {
+      <div class="divider"></div>
+      <section class="produces-section">
+        <h2 class="section-heading">Produces</h2>
+        <div class="stat-list">
+          @for (p of element()!.produces; track p.condition) {
+            <div class="stat-row">
+              <span class="stat-id">{{ p.condition }}</span>
+              @if (p.requirement) {
+                <span class="stat-condition">{{ p.requirement }}</span>
+              }
+              @if (p.chance !== null) {
+                <span class="stat-value">{{ p.chance }}%</span>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    }
 
     @if (element()!.stats.length > 0) {
+      <div class="divider"></div>
       <section class="stats-section">
         <h2 class="section-heading">Stats</h2>
         <div class="stat-list">
@@ -39,10 +72,10 @@
           }
         </div>
       </section>
-      <div class="divider"></div>
     }
 
     @if (edges().length > 0) {
+      <div class="divider"></div>
       <section class="edges-section">
         <h2 class="section-heading">Synergy connections</h2>
         <div class="edge-list">
@@ -52,12 +85,31 @@
               <div class="edge-row">
                 <app-facet-chip [facet]="peer.facet" />
                 <a [routerLink]="['/elements', peer._id]" class="peer-name">{{ peer.name }}</a>
-                <span class="edge-type" [class]="'edge-type--' + edge.edge_type.replace('_', '-')">
-                  {{ edge.edge_type.replace('_', ' ') }}
+                @if (edgeDetail(edge)) {
+                  <span class="edge-detail">{{ edgeDetail(edge) }}</span>
+                }
+                <span class="edge-type" [class]="edgeTypeClass(edge.edge_type)">
+                  {{ edge.edge_type.replace(/_/g, ' ') }}
                 </span>
                 <span class="edge-weight">{{ edge.weight.toFixed(2) }}</span>
               </div>
             }
+          }
+        </div>
+      </section>
+    }
+
+    @if (clusters().length > 0) {
+      <div class="divider"></div>
+      <section class="clusters-section">
+        <h2 class="section-heading">Appears in {{ clusters().length }} cluster{{ clusters().length !== 1 ? 's' : '' }}</h2>
+        <div class="cluster-list">
+          @for (c of clusters(); track c._id) {
+            <div class="cluster-row" (click)="navigateToCluster(c._id)" (keydown.enter)="navigateToCluster(c._id)" tabindex="0" role="button">
+              <span class="cluster-desc">{{ c.description || 'Synergy Cluster' }}</span>
+              <span class="cluster-edge-type" [class]="clusterEdgeClass(c)">{{ clusterEdgeLabel(c) }}</span>
+              <span class="cluster-score">{{ c.hidden_score.toFixed(2) }}</span>
+            </div>
           }
         </div>
       </section>

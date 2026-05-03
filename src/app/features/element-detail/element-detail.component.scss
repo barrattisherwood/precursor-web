@@ -41,6 +41,28 @@
   margin-top: $space-sm;
 }
 
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  margin-top: $space-md;
+}
+
+.meta-pill {
+  font-family: $font-data;
+  font-size: $text-micro;
+  letter-spacing: $ls-mono;
+  color: var(--c-text-muted);
+  border: 1px solid var(--c-border);
+  padding: 2px 6px;
+
+  &--warning {
+    color: var(--c-warning);
+    border-color: rgba(226, 168, 75, 0.3);
+    background: rgba(226, 168, 75, 0.08);
+  }
+}
+
 .section-heading {
   font-family: $font-data;
   font-size: $text-micro;
@@ -50,7 +72,7 @@
   margin-bottom: $space-lg;
 }
 
-.stats-section, .edges-section {
+.stats-section, .edges-section, .produces-section, .clusters-section {
   margin-bottom: $space-2xl;
 }
 
@@ -120,6 +142,13 @@
   border: 1px solid var(--c-border);
 }
 
+.edge-detail {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-mono;
+}
+
 .peer-name {
   font-family: $font-display;
   font-size: $text-title;
@@ -149,6 +178,60 @@
   font-size: $text-label;
   color: var(--c-text-muted);
   letter-spacing: $ls-mono;
+}
+
+.cluster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.cluster-row {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+  padding: $space-md $space-lg;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+
+  &:hover {
+    background: var(--c-raised);
+    border-color: var(--c-border-hover);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--c-ash);
+    outline-offset: -1px;
+  }
+}
+
+.cluster-desc {
+  font-family: $font-display;
+  font-size: $text-label;
+  color: var(--c-text-primary);
+  font-weight: 400;
+  flex: 1;
+}
+
+.cluster-edge-type {
+  font-family: $font-data;
+  font-size: $text-micro;
+  letter-spacing: $ls-mono;
+  text-transform: uppercase;
+
+  &.edge-type--keyword-overlap         { color: var(--c-edge-keyword); }
+  &.edge-type--condition-chain         { color: var(--c-edge-condition); }
+  &.edge-type--stat-multiplication     { color: var(--c-edge-multiplication); }
+}
+
+.cluster-score {
+  font-family: $font-data;
+  font-size: $text-label;
+  color: var(--c-ash);
+  letter-spacing: $ls-mono;
+  white-space: nowrap;
 }
 
 .error-msg {
