@@ -5,6 +5,7 @@ export interface ClusterEdge {
   to: string;
   edge_type: string;
   weight: number;
+  link?: Record<string, unknown>;
 }
 
 export interface SynergyCluster {

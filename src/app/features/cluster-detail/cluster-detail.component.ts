@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { ClusterService } from '../../shared/services/cluster.service';
-import { SynergyCluster } from '../../shared/types/cluster.types';
+import { SynergyCluster, ClusterEdge } from '../../shared/types/cluster.types';
 import { Element } from '../../shared/types/element.types';
 import { FacetChipComponent } from '../../shared/components/facet-chip/facet-chip.component';
 import { ScoreBarComponent } from '../../shared/components/score-bar/score-bar.component';
@@ -49,6 +49,30 @@ export class ClusterDetailComponent implements OnInit {
 
   navigateToElement(id: string): void {
     this.router.navigate(['/elements', id]);
+  }
+
+  elementName(id: string): string {
+    return this.elements.find(e => e._id === id)?.name ?? id.slice(-6);
+  }
+
+  edgeDetail(edge: ClusterEdge): string {
+    if (edge.edge_type === 'condition_chain' || edge.edge_type === 'condition_amplification') {
+      const condition = edge.link?.['condition'] as string | undefined;
+      return condition ? `via ${condition}` : '';
+    }
+    if (edge.edge_type === 'keyword_overlap') {
+      const kws = edge.link?.['shared_keywords'] as string[] | undefined;
+      return kws?.join(', ') ?? '';
+    }
+    return '';
+  }
+
+  edgeTypeClass(edgeType: string): string {
+    return 'edge-type--' + edgeType.replace(/_/g, '-');
+  }
+
+  edgeTypeLabel(edgeType: string): string {
+    return edgeType.replace(/_/g, ' ');
   }
 
   private setMeta(c: SynergyCluster): void {

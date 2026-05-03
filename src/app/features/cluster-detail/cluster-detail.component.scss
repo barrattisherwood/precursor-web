@@ -129,10 +129,25 @@
 .edge-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: $space-lg;
   padding: $space-sm $space-lg;
   background: var(--c-surface);
   border: 1px solid var(--c-border);
+}
+
+.edge-elements {
+  font-family: $font-display;
+  font-size: $text-label;
+  color: var(--c-text-secondary);
+  font-weight: 400;
+  flex: 1;
+}
+
+.edge-detail {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-mono;
 }
 
 .edge-type {
@@ -151,6 +166,8 @@
   font-size: $text-label;
   color: var(--c-text-muted);
   letter-spacing: $ls-mono;
+  white-space: nowrap;
+  margin-left: auto;
 }
 
 .error-msg {

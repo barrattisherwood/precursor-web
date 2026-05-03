@@ -67,9 +67,13 @@
         <div class="edge-list">
           @for (edge of cluster()!.edges; track $index) {
             <div class="edge-row">
-              <span class="edge-type" [class]="'edge-type--' + edge.edge_type.replace('_', '-')">
-                {{ edge.edge_type.replace('_', ' ') }}
+              <span class="edge-type" [class]="edgeTypeClass(edge.edge_type)">{{ edgeTypeLabel(edge.edge_type) }}</span>
+              <span class="edge-elements">
+                {{ elementName(edge.from) }} → {{ elementName(edge.to) }}
               </span>
+              @if (edgeDetail(edge)) {
+                <span class="edge-detail">{{ edgeDetail(edge) }}</span>
+              }
               <span class="edge-weight">{{ edge.weight.toFixed(2) }}</span>
             </div>
           }
