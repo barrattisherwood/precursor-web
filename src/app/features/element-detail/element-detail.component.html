@@ -35,6 +35,21 @@
       </div>
     </div>
 
+    @if (element()!.meta.description) {
+      <p class="gem-description">{{ element()!.meta.description }}</p>
+    }
+
+    @if (element()!.meta.stat_lines?.length) {
+      <div class="divider"></div>
+      <section class="stat-lines-section">
+        <ul class="stat-lines">
+          @for (line of element()!.meta.stat_lines!; track line) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+      </section>
+    }
+
     @if (element()!.produces.length > 0) {
       <div class="divider"></div>
       <section class="produces-section">

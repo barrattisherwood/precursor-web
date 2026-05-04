@@ -239,3 +239,38 @@
   color: var(--c-ember);
   margin-bottom: $space-lg;
 }
+
+.gem-description {
+  font-family: $font-data;
+  font-size: $text-body;
+  color: var(--c-text-muted);
+  line-height: 1.6;
+  margin-top: $space-md;
+  font-style: italic;
+}
+
+.stat-lines-section {
+  margin-top: $space-md;
+}
+
+.stat-lines {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  li {
+    font-family: $font-data;
+    font-size: $text-body;
+    color: var(--c-text-primary);
+    line-height: 1.5;
+
+    &::before {
+      content: '·';
+      color: var(--c-ash);
+      margin-right: $space-xs;
+    }
+  }
+}

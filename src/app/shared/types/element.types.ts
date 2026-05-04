@@ -16,6 +16,8 @@ export interface ElementMeta {
   affix_type?: string;
   tier?: number;
   league_mechanic?: string | null;
+  stat_lines?: string[];
+  description?: string;
 }
 
 export interface ElementStat {
