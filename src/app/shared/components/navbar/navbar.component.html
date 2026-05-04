@@ -8,6 +8,29 @@
     <a class="nav-link" routerLink="/explore" routerLinkActive="active" (click)="menuOpen.set(false)">Explore</a>
   </div>
 
+  <div class="nav-search" (click)="onSearchClick($event)">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Search elements…"
+      [value]="searchQuery()"
+      (input)="onSearchInput($event)"
+      (keydown)="onSearchKeydown($event)"
+      (focus)="searchOpen.set(true)"
+      autocomplete="off"
+    />
+    @if (searchOpen() && searchResults().length > 0) {
+      <div class="search-dropdown">
+        @for (el of searchResults(); track el._id) {
+          <div class="search-result" (click)="selectResult(el)">
+            <span class="result-facet">{{ facetLabel(el.facet) }}</span>
+            <span class="result-name">{{ el.name }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
   <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
