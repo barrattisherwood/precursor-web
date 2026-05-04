@@ -145,6 +145,50 @@
   &:hover { opacity: 0.7; }
 }
 
+.legend {
+  margin-top: $space-lg;
+}
+
+.legend-heading {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-wide;
+  text-transform: uppercase;
+  margin-bottom: $space-sm;
+}
+
+.legend-rows {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-mono;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-line {
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  flex-shrink: 0;
+}
+
 @include mobile {
   .explorer-layout {
     grid-template-columns: 1fr;
