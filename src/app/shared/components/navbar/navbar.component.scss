@@ -8,19 +8,39 @@
   left: 0;
   right: 0;
   height: $navbar-height;
-  background: var(--c-base);
+  background: rgba(10, 9, 7, 0.95);
   border-bottom: 1px solid var(--c-border);
   display: flex;
   align-items: center;
   padding: 0 $space-xl;
   justify-content: space-between;
   z-index: 100;
-  transition: background 200ms ease, backdrop-filter 200ms ease;
+  transition: background 300ms ease;
+
+  // Subtle inner glow on the bottom border — tarnished gold shimmer
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--c-gold-dim) 30%,
+      var(--c-gold-dim) 70%,
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
 
   &.scrolled {
-    background: rgba(13, 12, 11, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(10, 9, 7, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    &::after { opacity: 1; }
   }
 }
 
@@ -31,11 +51,18 @@
 .nav-logo {
   font-family: $font-display;
   font-size: 18px;
+  font-weight: 400;
   color: var(--c-text-primary);
-  letter-spacing: $ls-normal;
-  cursor: pointer;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
 
-  .accent { color: var(--c-ash); }
+  // ".NEXUS" in tarnished gold italic
+  .accent {
+    color: var(--c-gold);
+    font-style: italic;
+    letter-spacing: 0.06em;
+  }
 }
 
 .nav-links {
@@ -79,19 +106,19 @@
     bottom: 0;
     width: 100%;
     height: 1px;
-    background: var(--c-ash);
+    background: var(--c-gold);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 200ms ease;
+    transition: transform 220ms ease;
   }
 
   &:hover {
-    color: var(--c-text-primary);
+    color: var(--c-gold);
     &::after { transform: scaleX(1); }
   }
 
   &.active {
-    color: var(--c-ash);
+    color: var(--c-gold);
     &::after { transform: scaleX(1); }
   }
 }

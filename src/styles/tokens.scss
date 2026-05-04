@@ -1,29 +1,40 @@
 :root {
-  --c-base:          #0d0c0b;
-  --c-surface:       #141311;
-  --c-raised:        #1a1917;
-  --c-border:        #252320;
-  --c-border-hover:  #403c38;
+  // Base surfaces — warmer blacks, hint of deep brown-green like aged stone
+  --c-base:          #0a0907;   // near-black with warm undertone
+  --c-surface:       #110f0d;   // card background — stone dark
+  --c-raised:        #1a1612;   // elevated — aged wood/stone
+  --c-border:        #2e2620;   // default border — dark tarnish
+  --c-border-hover:  #5a4a35;   // hovered — warm bronze reveal
 
-  --c-text-primary:   #d4cfc8;
-  --c-text-secondary: #7a7570;
-  --c-text-muted:     #4a4642;
+  // Text — parchment and ash, not pure white
+  --c-text-primary:   #e8dcc8;  // aged parchment — warm off-white
+  --c-text-secondary: #8a7660;  // worn leather — muted warm brown
+  --c-text-muted:     #4a3f32;  // deep shadow text
 
-  --c-ash:           #7ba3b8;
-  --c-ember:         #c46e3a;
+  // Primary accent — tarnished gold (replaces ash blue entirely)
+  --c-gold:          #c8a96e;   // tarnished gold — the primary accent
+  --c-gold-bright:   #e8c88a;   // highlight gold — hover states, active
+  --c-gold-dim:      #7a6040;   // dim gold — inactive, subtle
 
-  --c-facet-skill:      #e2a84b;
-  --c-facet-support:    #6baed6;
-  --c-facet-passive:    #74c476;
-  --c-facet-ascendancy: #de77ae;
-  --c-facet-affix:      #9e9ac8;
+  // Secondary accent — blood / deep crimson (replaces ember orange)
+  --c-blood:         #8b2020;   // deep blood red — danger, condition chains
+  --c-blood-bright:  #b83030;   // brighter blood — hover on danger elements
 
-  --c-edge-keyword:        #7ba3b8;
-  --c-edge-condition:      #c46e3a;
-  --c-edge-multiplication: #74c476;
-  --c-edge-amplification:  #de77ae;
+  // Facet colours — desaturated, darker, more in keeping with the palette
+  --c-facet-skill:      #c8943a;   // burnt gold
+  --c-facet-support:    #4a7a8a;   // deep teal-grey
+  --c-facet-passive:    #4a7a4a;   // dark forest green
+  --c-facet-ascendancy: #7a3a6a;   // deep purple-maroon
+  --c-facet-affix:      #5a5a8a;   // deep slate
 
-  --c-danger:   #c46e3a;
-  --c-success:  #74c476;
-  --c-warning:  #e2a84b;
+  // Edge type colours — D3 graph
+  --c-edge-keyword:        #c8943a;   // burnt gold — keyword_overlap
+  --c-edge-condition:      #8b2020;   // blood red — condition_chain
+  --c-edge-multiplication: #4a7a4a;   // forest green — stat_multiplication
+  --c-edge-amplification:  #7a3a6a;   // deep purple — condition_amplification
+
+  // Semantic
+  --c-danger:  #8b2020;
+  --c-success: #4a7a4a;
+  --c-warning: #c8943a;
 }

@@ -13,14 +13,33 @@ html {
 }
 
 body {
-  background: var(--c-base);
+  background-color: var(--c-base);
   color: var(--c-text-primary);
   font-family: $font-ui;
   font-size: $text-body;
-  line-height: 1.6;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+
+  // Atmospheric layering — subtle noise grain + vignette
+  background-image:
+    // Radial vignette — faint gold warmth at top
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(200, 169, 110, 0.03) 0%,
+      transparent 60%
+    ),
+    // Radial vignette — edges darker at bottom
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 70%
+    ),
+    // SVG noise texture inline — no external file needed
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+
+  background-attachment: fixed;
 }
 
 a {
@@ -43,14 +62,16 @@ a {
 .page-heading {
   font-family: $font-display;
   font-size: $text-display;
+  font-weight: 300;
   color: var(--c-text-primary);
-  font-weight: 400;
-  letter-spacing: $ls-normal;
+  letter-spacing: $ls-display;
+  line-height: 1.1;
   margin-bottom: $space-sm;
 
   em {
-    color: var(--c-ash);
+    color: var(--c-gold);
     font-style: italic;
+    font-weight: 400;
   }
 }
 
@@ -74,17 +95,20 @@ a {
   content: '';
   font-family: $font-data;
   font-size: $text-label;
-  color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
-  animation: loading-pulse 1.2s steps(1) infinite;
+  color: var(--c-gold-dim);
+  letter-spacing: 0.12em;
+  animation: loading-pulse 1.4s steps(1) infinite;
 }
 
 ::selection {
-  background: rgba(123, 163, 184, 0.25);
+  background: rgba(200, 169, 110, 0.2);
   color: var(--c-text-primary);
 }
 
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--c-base); }
-::-webkit-scrollbar-thumb { background: var(--c-border-hover); }
-::-webkit-scrollbar-thumb:hover { background: var(--c-text-muted); }
+::-webkit-scrollbar-thumb {
+  background: var(--c-gold-dim);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--c-gold); }

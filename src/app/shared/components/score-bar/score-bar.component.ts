@@ -9,13 +9,13 @@ import { Component, input, computed } from '@angular/core';
   `,
   styles: [`
     .score-bar-track {
-      height: 2px;
+      height: 1px;
       background: var(--c-border);
     }
     .score-bar-fill {
-      height: 2px;
-      background: var(--c-ash);
-      transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+      height: 1px;
+      background: linear-gradient(90deg, var(--c-gold-dim), var(--c-gold));
+      transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1);
     }
   `],
 })

@@ -51,7 +51,9 @@ export class D3GraphService {
 
     this.svg = d3.select(container).append('svg')
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
+      .style('background', 'radial-gradient(ellipse at center, #110f0d 0%, #0a0907 100%)')
+      .style('border', '1px solid var(--c-border)');
 
     const g = this.svg.append('g');
 
@@ -85,17 +87,29 @@ export class D3GraphService {
       .attr('stroke-opacity', d => 0.3 + d.weight * 0.7)
       .attr('stroke-width', d => 1 + d.weight * 3);
 
+    const pivotId = nodesCopy.find(n => n.weight >= 1.0)?.id;
+
+    const nodeFill = (d: GraphNode) => {
+      if (d.id === pivotId) return 'transparent';
+      return (this.FACET_COLOURS[d.facet] ?? '#999') + '22';
+    };
+
+    const nodeStroke = (d: GraphNode) => {
+      if (d.id === pivotId) return this.getCSSVar('--c-gold');
+      return this.FACET_COLOURS[d.facet] ?? '#999';
+    };
+
+    const nodeStrokeWidth = (d: GraphNode) => d.id === pivotId ? 2 : 1;
+
     const node = g.append('g').selectAll('circle')
       .data(nodesCopy).join('circle')
       .attr('r', d => d.weight >= 1.0 ? 24 : d.weight >= 0.4 ? 16 : 10)
-      .attr('fill', d => this.FACET_COLOURS[d.facet] ?? '#ccc')
-      .attr('stroke', '#fff')
-      .attr('stroke-width', 1.5)
+      .attr('fill', nodeFill)
+      .attr('stroke', nodeStroke)
+      .attr('stroke-width', nodeStrokeWidth)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .call(this.drag() as any)
       .on('click', (_, d) => this.onNodeClick(d));
-
-    const pivotId = nodesCopy.find(n => n.weight >= 1.0)?.id;
 
     // Permanent label only for the pivot node
     const pivotLabel = g.append('g').selectAll('text.pivot')
@@ -104,14 +118,14 @@ export class D3GraphService {
       .attr('font-size', 12)
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'middle')
-      .attr('fill', '#e8d5a3')
+      .attr('fill', this.getCSSVar('--c-gold'))
       .attr('pointer-events', 'none');
 
     // Hover label for other nodes
     const hoverLabel = g.append('text')
       .attr('font-size', 11)
       .attr('text-anchor', 'middle')
-      .attr('fill', '#ccc')
+      .attr('fill', this.getCSSVar('--c-text-secondary'))
       .attr('pointer-events', 'none')
       .style('display', 'none');
 

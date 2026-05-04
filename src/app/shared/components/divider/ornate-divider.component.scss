@@ -1,0 +1,31 @@
+@use '../../../../../styles/typography' as *;
+@use '../../../../../styles/layout' as *;
+
+.ornate-divider {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  margin: $space-xl 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--c-border) 40%,
+      var(--c-border) 60%,
+      transparent
+    );
+  }
+
+  .ornament {
+    color: var(--c-gold-dim);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+}
