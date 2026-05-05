@@ -16,7 +16,7 @@ export class ClusterBrowserComponent implements OnInit {
   private readonly meta = inject(Meta);
 
   ngOnInit(): void {
-    this.title.setTitle('Hidden Synergies — Precursor');
+    this.title.setTitle('Hidden Synergies — Precursor.nexus');
     this.meta.updateTag({ name: 'description', content: 'Discover underplayed build synergies in Path of Exile 2 — sorted by hidden score, not popularity.' });
     this.store.load();
   }

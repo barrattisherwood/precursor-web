@@ -1,0 +1,28 @@
+@use '../../../styles/typography' as *;
+@use '../../../styles/layout' as *;
+
+.about-section {
+  margin-bottom: $space-2xl;
+}
+
+.section-heading {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-wide;
+  text-transform: uppercase;
+  margin-bottom: $space-md;
+}
+
+.about-body {
+  font-family: $font-data;
+  font-size: $text-body;
+  color: var(--c-text-secondary);
+  line-height: 1.8;
+  max-width: 640px;
+
+  &.disclaimer {
+    color: var(--c-text-muted);
+    font-size: $text-label;
+  }
+}

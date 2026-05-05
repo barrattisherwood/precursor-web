@@ -37,7 +37,7 @@ export class ElementDetailComponent implements OnInit {
       this.element.set(element);
       this.edges.set(edges);
       this.clusters.set(clustersResult.clusters);
-      this.title.setTitle(`${element.name} — Precursor`);
+      this.title.setTitle(`${element.name} — Precursor.nexus`);
       this.meta.updateTag({ name: 'description', content:
         `${element.facet.replace(/_/g, ' ')} · Keywords: ${element.keywords.join(', ')}` });
     } catch {

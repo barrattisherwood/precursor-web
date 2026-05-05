@@ -99,12 +99,12 @@ export class ClusterDetailComponent implements OnInit {
 
   private setMeta(c: SynergyCluster): void {
     const desc = c.description.slice(0, 160);
-    this.title.setTitle(`${c.description.slice(0, 60)} — Precursor`);
+    this.title.setTitle(`${c.description.slice(0, 60)} — Precursor.nexus`);
     this.meta.updateTag({ name: 'description', content: desc });
     this.meta.updateTag({ property: 'og:title', content: c.description });
     this.meta.updateTag({ property: 'og:description', content:
       `Hidden synergy score: ${c.hidden_score.toFixed(2)} · Used by ${(c.usage_pct * 100).toFixed(1)}% of top ladder builds` });
     this.meta.updateTag({ property: 'og:url', content: `https://precursor.nexus/clusters/${c._id}` });
-    this.meta.updateTag({ property: 'og:site_name', content: 'Precursor' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Precursor.nexus' });
   }
 }

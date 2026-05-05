@@ -30,7 +30,7 @@ export class SynergyExplorerComponent implements OnInit {
   private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
-    this.title.setTitle('Synergy Explorer — Precursor');
+    this.title.setTitle('Synergy Explorer — Precursor.nexus');
   }
 
   ngOnInit(): void {

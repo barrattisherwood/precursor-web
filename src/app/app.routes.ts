@@ -29,5 +29,10 @@ export const routes: Routes = [
         m => m.SynergyExplorerComponent,
       ),
   },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./features/about/about.component').then(m => m.AboutComponent),
+  },
   { path: '', redirectTo: 'clusters', pathMatch: 'full' },
 ];
