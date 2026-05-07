@@ -1,0 +1,45 @@
+<div class="page-container">
+  <h1 class="page-heading">Economy <em>Tracker</em></h1>
+  <p class="page-subheading">Currency rates · {{ snapshot()?.league ?? 'current league' }}</p>
+
+  @if (loading()) {
+    <p class="loading-indicator"></p>
+  } @else if (unavailable() || !snapshot()) {
+    <div class="unavailable-state">
+      <p class="unavailable-heading">No data yet</p>
+      <p class="unavailable-body">
+        Currency rate snapshots are captured daily from the GGG trade API.
+        Data will appear here once the first snapshot has been collected.
+      </p>
+      <p class="unavailable-body">
+        Economy data requires GGG trade API access which is pending whitelist approval.
+        Check back after the next league launch.
+      </p>
+    </div>
+  } @else {
+    <div class="snapshot-meta">
+      <span class="meta-label">Snapshot</span>
+      <span class="meta-value">{{ formatCaptured(snapshot()!.captured_at) }}</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-label">Patch</span>
+      <span class="meta-value">{{ snapshot()!.patch_version }}</span>
+    </div>
+
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th class="col-currency">Currency</th>
+          <th class="col-rate">Chaos Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (rate of snapshot()!.currency_rates; track rate.currency_id) {
+          <tr class="rate-row">
+            <td class="rate-currency">{{ rate.currency_id }}</td>
+            <td class="rate-value">{{ rate.chaos_value.toFixed(2) }}c</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

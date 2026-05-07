@@ -30,6 +30,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'economy',
+    loadComponent: () =>
+      import('./features/economy/economy.component').then(m => m.EconomyComponent),
+  },
+  {
     path: 'about',
     loadComponent: () =>
       import('./features/about/about.component').then(m => m.AboutComponent),
