@@ -97,6 +97,33 @@ export class ClusterDetailComponent implements OnInit {
     return edgeType.replace(/_/g, ' ');
   }
 
+  tooltipLines(el: Element): string[] {
+    if (el.meta.stat_lines?.length) return el.meta.stat_lines;
+    if (el.meta.description) return el.meta.description.split('\n').filter(Boolean);
+    if (el.stats.length) {
+      return el.stats.map(s => {
+        const range = s.value_min === s.value_max
+          ? `${s.value_min}`
+          : `${s.value_min}–${s.value_max}`;
+        const label = s.stat_id.replace(/_\+%/g, '%').replace(/_/g, ' ');
+        return `${range} ${label}`;
+      });
+    }
+    return [];
+  }
+
+  tooltipMeta(el: Element): string | null {
+    switch (el.facet) {
+      case 'passive_node':    return el.meta.node_type ?? null;
+      case 'ascendancy_node': return el.meta.ascendancy ?? null;
+      case 'item_affix':      return el.meta.affix_type
+        ? `${el.meta.affix_type} · tier ${el.meta.tier ?? '?'}` : null;
+      case 'skill_gem':
+      case 'support_gem':     return el.meta.gem_tags?.join(' · ') ?? null;
+      default:                return null;
+    }
+  }
+
   private setMeta(c: SynergyCluster): void {
     const desc = c.description.slice(0, 160);
     this.title.setTitle(`${c.description.slice(0, 60)} — Precursor.nexus`);

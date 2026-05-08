@@ -87,6 +87,16 @@
             <app-facet-chip [facet]="el.facet" />
             <span class="element-name">{{ el.name }}</span>
             <span class="element-keywords">{{ el.keywords.join(' · ') }}</span>
+            @if (tooltipLines(el).length) {
+              <div class="element-tooltip">
+                @if (tooltipMeta(el); as meta) {
+                  <p class="tooltip-meta">{{ meta }}</p>
+                }
+                @for (line of tooltipLines(el); track $index) {
+                  <p class="tooltip-line">{{ line }}</p>
+                }
+              </div>
+            }
           </div>
         }
       </div>

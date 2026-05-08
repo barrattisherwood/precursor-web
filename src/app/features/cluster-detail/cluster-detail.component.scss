@@ -151,6 +151,7 @@
   border: 1px solid var(--c-border);
   cursor: pointer;
   transition: background 200ms ease, border-color 200ms ease;
+  position: relative;
 
   &:hover {
     background: var(--c-raised);
@@ -161,6 +162,47 @@
     outline: 1px solid var(--c-ash);
     outline-offset: -1px;
   }
+
+  &:hover .element-tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.element-tooltip {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: -1px;
+  z-index: 200;
+  min-width: 260px;
+  max-width: 420px;
+  background: var(--c-base);
+  border: 1px solid var(--c-border-hover);
+  padding: $space-md $space-lg;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.tooltip-meta {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-wide;
+  text-transform: uppercase;
+  margin: 0 0 $space-sm;
+}
+
+.tooltip-line {
+  font-family: $font-data;
+  font-size: $text-label;
+  color: var(--c-gold);
+  letter-spacing: $ls-mono;
+  line-height: 1.7;
+  margin: 0;
+
+  & + & { margin-top: 2px; }
 }
 
 .element-name {
