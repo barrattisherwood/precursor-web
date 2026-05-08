@@ -126,6 +126,8 @@ export class ClusterDetailComponent implements OnInit {
         ? `${el.meta.affix_type} · tier ${el.meta.tier ?? '?'}` : null;
       case 'skill_gem':
       case 'support_gem':     return el.meta.gem_tags?.join(' · ') ?? null;
+      case 'unique_item':     return el.meta.unique_item_class
+        ? `${el.meta.unique_item_class}${el.meta.base_item_name ? ' · ' + el.meta.base_item_name : ''}` : null;
       default:                return null;
     }
   }

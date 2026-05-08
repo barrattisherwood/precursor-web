@@ -36,4 +36,9 @@
     color: var(--c-facet-affix);
     border-color: rgba(90, 90, 138, 0.18);
   }
+  &--unique {
+    background: rgba(175, 96, 37, 0.1);
+    color: #af6025;
+    border-color: rgba(175, 96, 37, 0.25);
+  }
 }

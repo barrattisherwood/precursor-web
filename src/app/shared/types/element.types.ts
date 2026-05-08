@@ -3,21 +3,25 @@ export type ElementFacet =
   | 'support_gem'
   | 'passive_node'
   | 'ascendancy_node'
-  | 'item_affix';
+  | 'item_affix'
+  | 'unique_item';
 
 export interface ElementMeta {
   gem_tags?: string[];
   max_level?: number;
   support_restricted_to?: string[];
   spirit_cost?: number;
+  description?: string;
   node_type?: string;
   ascendancy?: string;
   ascendancy_class?: string;
   affix_type?: string;
   tier?: number;
+  unique_item_class?: string;
+  base_item_name?: string | null;
+  flavour_text?: string | null;
   league_mechanic?: string | null;
   stat_lines?: string[];
-  description?: string;
 }
 
 export interface ElementStat {

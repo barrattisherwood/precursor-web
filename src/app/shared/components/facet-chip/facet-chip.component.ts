@@ -15,6 +15,7 @@ export class FacetChipComponent {
     passive_node:    'Passive',
     ascendancy_node: 'Ascendancy',
     item_affix:      'Item affix',
+    unique_item:     'Unique',
   };
 
   private readonly CLASS_MAP: Record<ElementFacet, string> = {
@@ -23,6 +24,7 @@ export class FacetChipComponent {
     passive_node:    'passive',
     ascendancy_node: 'ascendancy',
     item_affix:      'affix',
+    unique_item:     'unique',
   };
 
   label()      { return this.LABELS[this.facet()]; }
