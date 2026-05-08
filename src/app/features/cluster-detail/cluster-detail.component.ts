@@ -23,6 +23,7 @@ export class ClusterDetailComponent implements OnInit {
   readonly cluster = signal<SynergyCluster | null>(null);
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
+  readonly tooltipBelow = signal(false);
 
   readonly hiddennessFactor = computed(() => {
     const c = this.cluster();
@@ -110,6 +111,11 @@ export class ClusterDetailComponent implements OnInit {
       });
     }
     return [];
+  }
+
+  checkTooltipFlip(event: MouseEvent): void {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    this.tooltipBelow.set(rect.top < 240);
   }
 
   tooltipMeta(el: Element): string | null {

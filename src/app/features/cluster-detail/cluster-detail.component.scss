@@ -183,6 +183,11 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 120ms ease;
+
+  &--below {
+    bottom: unset;
+    top: calc(100% + 4px);
+  }
 }
 
 .tooltip-meta {

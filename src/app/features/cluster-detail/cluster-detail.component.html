@@ -83,12 +83,12 @@
       <h2 class="section-heading">Elements</h2>
       <div class="element-list">
         @for (el of elements; track el._id) {
-          <div class="element-row" (click)="navigateToElement(el._id)" (keydown.enter)="navigateToElement(el._id)" tabindex="0" role="button">
+          <div class="element-row" (click)="navigateToElement(el._id)" (keydown.enter)="navigateToElement(el._id)" (mouseenter)="checkTooltipFlip($event)" tabindex="0" role="button">
             <app-facet-chip [facet]="el.facet" />
             <span class="element-name">{{ el.name }}</span>
             <span class="element-keywords">{{ el.keywords.join(' · ') }}</span>
             @if (tooltipLines(el).length) {
-              <div class="element-tooltip">
+              <div class="element-tooltip" [class.element-tooltip--below]="tooltipBelow()">
                 @if (tooltipMeta(el); as meta) {
                   <p class="tooltip-meta">{{ meta }}</p>
                 }
