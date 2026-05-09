@@ -12,6 +12,7 @@ export interface SynergyCluster {
   _id: string;
   element_ids: (Element | string)[];
   facets_represented: string[];
+  tags: string[];
   edges: ClusterEdge[];
   theoretical_score: number;
   usage_count: number;
@@ -32,6 +33,9 @@ export interface ClusterFilters {
   leagueScoped: boolean;
   sortBy: 'hidden_score' | 'theoretical_score' | 'usage_pct';
   edgeType: 'keyword_overlap' | 'condition_chain' | null;
+  tags: string[];
+  elementId: string | null;
+  elementName: string | null;
 }
 
 export interface ClustersResponse {

@@ -34,6 +34,10 @@ export class ClusterCardComponent {
     return this.cluster().hidden_score.toFixed(2);
   }
 
+  get tags(): string[] {
+    return this.cluster().tags ?? [];
+  }
+
   get edgeTypeLabel(): string {
     const edges = this.cluster().edges;
     if (edges.some(e => e.edge_type === 'condition_chain' || e.edge_type === 'condition_amplification')) {

@@ -16,6 +16,9 @@ export class ClusterStore {
     leagueScoped: false,
     sortBy: 'hidden_score',
     edgeType: null,
+    tags: [],
+    elementId: null,
+    elementName: null,
   });
 
   readonly clusters = this._clusters.asReadonly();

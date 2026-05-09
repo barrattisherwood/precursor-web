@@ -25,4 +25,22 @@
   @if (cluster().combo_gated) {
     <span class="badge badge--muted">Combo gated</span>
   }
+
+  <div class="card-tooltip">
+    @if (tags.length > 0) {
+      <div class="tooltip-tags">
+        @for (tag of tags; track tag) {
+          <span class="tooltip-tag">{{ tag }}</span>
+        }
+      </div>
+    }
+    <div class="tooltip-stats">
+      <span>Hidden <strong>{{ hiddenScore }}</strong></span>
+      <span>Theoretical <strong>{{ cluster().theoretical_score.toFixed(2) }}</strong></span>
+      <span>Usage <strong>{{ usagePct }}%</strong></span>
+    </div>
+    <div class="tooltip-meta">
+      {{ elements.length }} elements · {{ cluster().edges.length }} connections
+    </div>
+  </div>
 </article>

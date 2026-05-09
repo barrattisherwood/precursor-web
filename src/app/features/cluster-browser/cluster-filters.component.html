@@ -49,4 +49,50 @@
       Include league
     </button>
   </div>
+
+  <div class="filter-group filter-group--tags">
+    <label class="filter-label">Tags <span class="filter-label-hint">(must include all)</span></label>
+    <div class="tag-grid">
+      @for (tag of tagOptions; track tag) {
+        <button
+          class="btn-tag"
+          [class.active]="isTagActive(tag)"
+          (click)="toggleTag(tag)">
+          {{ tag }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="filter-group filter-group--element-search">
+    <label class="filter-label">Must include element</label>
+    @if (filters.elementName) {
+      <div class="element-pill">
+        <span class="element-pill__name">{{ filters.elementName }}</span>
+        <button class="element-pill__clear" (click)="clearElement()" aria-label="Clear element filter">×</button>
+      </div>
+    } @else {
+      <div class="element-search-wrap">
+        <input
+          class="element-search-input"
+          type="text"
+          placeholder="Search gems, passives, uniques…"
+          [value]="elementQuery()"
+          (input)="onElementInput($any($event.target).value)"
+          (blur)="closeDropdown()"
+          autocomplete="off"
+        />
+        @if (searchOpen()) {
+          <ul class="element-dropdown">
+            @for (el of elementResults(); track el._id) {
+              <li class="element-dropdown__item" (mousedown)="selectElement(el)">
+                <span class="element-dropdown__name">{{ el.name }}</span>
+                <span class="element-dropdown__facet">{{ el.facet | titlecase }}</span>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    }
+  </div>
 </div>

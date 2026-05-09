@@ -1,7 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { ClusterStore } from '../../shared/state/cluster.store';
 import { ClusterFilters } from '../../shared/types/cluster.types';
+import { Element } from '../../shared/types/element.types';
+import { environment } from '../../../environments/environment';
 
 const FACET_OPTIONS = [
   { value: null, label: 'All facets' },
@@ -10,6 +15,7 @@ const FACET_OPTIONS = [
   { value: 'passive_node', label: 'Passive' },
   { value: 'ascendancy_node', label: 'Ascendancy' },
   { value: 'item_affix', label: 'Item affix' },
+  { value: 'unique_item', label: 'Unique' },
 ];
 
 const SORT_OPTIONS: { value: ClusterFilters['sortBy']; label: string }[] = [
@@ -24,18 +30,33 @@ const EDGE_TYPE_OPTIONS: { value: ClusterFilters['edgeType']; label: string }[] 
   { value: 'condition_chain', label: 'Condition chain' },
 ];
 
+export const TAG_OPTIONS = [
+  'Fire', 'Cold', 'Lightning', 'Chaos', 'Physical',
+  'Poison', 'Bleed', 'Attack', 'Spell', 'Projectile',
+  'Melee', 'AoE', 'Minion', 'Aura', 'Duration',
+  'Totem', 'Trap', 'Mine',
+];
+
 @Component({
   selector: 'app-cluster-filters',
-  imports: [FormsModule],
+  imports: [FormsModule, TitleCasePipe],
   templateUrl: './cluster-filters.component.html',
   styleUrl: './cluster-filters.component.scss',
 })
 export class ClusterFiltersComponent {
   readonly store = inject(ClusterStore);
+  private readonly http = inject(HttpClient);
 
   readonly facetOptions = FACET_OPTIONS;
   readonly sortOptions = SORT_OPTIONS;
   readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
+  readonly tagOptions = TAG_OPTIONS;
+
+  readonly elementQuery = signal('');
+  readonly elementResults = signal<Element[]>([]);
+  readonly searchOpen = signal(false);
+
+  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   get filters() { return this.store.filters(); }
 
@@ -57,5 +78,51 @@ export class ClusterFiltersComponent {
 
   setEdgeType(value: ClusterFilters['edgeType']): void {
     this.store.updateFilter({ edgeType: value });
+  }
+
+  toggleTag(tag: string): void {
+    const current = this.filters.tags;
+    const next = current.includes(tag)
+      ? current.filter(t => t !== tag)
+      : [...current, tag];
+    this.store.updateFilter({ tags: next });
+  }
+
+  isTagActive(tag: string): boolean {
+    return this.filters.tags.includes(tag);
+  }
+
+  onElementInput(value: string): void {
+    this.elementQuery.set(value);
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+    if (value.length < 2) {
+      this.elementResults.set([]);
+      this.searchOpen.set(false);
+      return;
+    }
+    this.debounceTimer = setTimeout(async () => {
+      const results = await firstValueFrom(
+        this.http.get<Element[]>(`${environment.apiBase}/elements/search`, {
+          params: { q: value },
+        }),
+      );
+      this.elementResults.set(results);
+      this.searchOpen.set(results.length > 0);
+    }, 250);
+  }
+
+  selectElement(el: Element): void {
+    this.store.updateFilter({ elementId: el._id, elementName: el.name });
+    this.elementQuery.set('');
+    this.elementResults.set([]);
+    this.searchOpen.set(false);
+  }
+
+  clearElement(): void {
+    this.store.updateFilter({ elementId: null, elementName: null });
+  }
+
+  closeDropdown(): void {
+    this.searchOpen.set(false);
   }
 }
