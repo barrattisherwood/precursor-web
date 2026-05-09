@@ -48,13 +48,31 @@
   margin-top: $space-md;
 }
 
-.card-description {
-  font-family: $font-data;
-  font-size: 11px;
-  color: var(--c-text-secondary);
-  line-height: 1.7;
-  letter-spacing: 0.03em;
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
   margin-bottom: $space-md;
+}
+
+.card-tag {
+  font-family: $font-data;
+  font-size: 10px;
+  letter-spacing: $ls-mono;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid rgba(122, 96, 64, 0.4);
+  color: var(--c-text-secondary);
+  background: rgba(122, 96, 64, 0.07);
+}
+
+.chip-count {
+  font-family: $font-data;
+  font-size: 10px;
+  letter-spacing: 0;
+  color: var(--c-text-muted);
+  margin-right: $space-xs;
+  align-self: center;
 }
 
 .card-footer {

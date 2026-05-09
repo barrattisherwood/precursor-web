@@ -38,6 +38,14 @@ export class ClusterCardComponent {
     return this.cluster().tags ?? [];
   }
 
+  get facetCounts(): { facet: string; count: number }[] {
+    const counts = new Map<string, number>();
+    for (const f of this.cluster().facets_represented) {
+      counts.set(f, (counts.get(f) ?? 0) + 1);
+    }
+    return [...counts.entries()].map(([facet, count]) => ({ facet, count }));
+  }
+
   get edgeTypeLabel(): string {
     const edges = this.cluster().edges;
     if (edges.some(e => e.edge_type === 'condition_chain' || e.edge_type === 'condition_amplification')) {

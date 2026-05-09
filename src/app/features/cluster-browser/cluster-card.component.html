@@ -3,16 +3,21 @@
 
   <h2 class="card-title">{{ cluster().description || 'Synergy Cluster' }}</h2>
 
-  <p class="card-description">
-    @for (el of elements; track el._id) {
-      {{ el.name }}@if (!$last) { · }
-    }
-  </p>
+  @if (tags.length > 0) {
+    <div class="card-tags">
+      @for (tag of tags; track tag) {
+        <span class="card-tag">{{ tag }}</span>
+      }
+    </div>
+  }
 
   <div class="card-footer">
     <div class="chip-row">
-      @for (facet of cluster().facets_represented; track facet) {
-        <app-facet-chip [facet]="$any(facet)" />
+      @for (fc of facetCounts; track fc.facet) {
+        <app-facet-chip [facet]="$any(fc.facet)" />
+        @if (fc.count > 1) {
+          <span class="chip-count">×{{ fc.count }}</span>
+        }
       }
       <span class="edge-type-badge">{{ edgeTypeLabel }}</span>
     </div>
@@ -27,13 +32,6 @@
   }
 
   <div class="card-tooltip">
-    @if (tags.length > 0) {
-      <div class="tooltip-tags">
-        @for (tag of tags; track tag) {
-          <span class="tooltip-tag">{{ tag }}</span>
-        }
-      </div>
-    }
     <div class="tooltip-stats">
       <span>Hidden <strong>{{ hiddenScore }}</strong></span>
       <span>Theoretical <strong>{{ cluster().theoretical_score.toFixed(2) }}</strong></span>
