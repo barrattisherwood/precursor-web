@@ -53,7 +53,7 @@
   <div class="filter-group filter-group--tags">
     <label class="filter-label">Tags <span class="filter-label-hint">(must include all)</span></label>
     <div class="tag-grid">
-      @for (tag of tagOptions; track tag) {
+      @for (tag of tagOptions(); track tag) {
         <button
           class="btn-tag"
           [class.active]="isTagActive(tag)"

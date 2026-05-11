@@ -15,6 +15,7 @@ export class ClusterService {
       limit: '20',
       offset: String(page * 20),
       league_scoped: String(filters.leagueScoped),
+      min_elements: '3',
     };
     if (filters.facet) params['facet'] = filters.facet;
     if (filters.spiritFeasible) params['spirit_feasible'] = 'true';
@@ -24,6 +25,12 @@ export class ClusterService {
 
     return firstValueFrom(
       this.http.get<ClustersResponse>(`${this.base}/clusters`, { params }),
+    );
+  }
+
+  getTags(): Promise<string[]> {
+    return firstValueFrom(
+      this.http.get<string[]>(`${this.base}/clusters/tags`),
     );
   }
 

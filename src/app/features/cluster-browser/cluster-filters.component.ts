@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ClusterStore } from '../../shared/state/cluster.store';
+import { ClusterService } from '../../shared/services/cluster.service';
 import { ClusterFilters } from '../../shared/types/cluster.types';
 import { Element } from '../../shared/types/element.types';
 import { environment } from '../../../environments/environment';
@@ -30,12 +31,6 @@ const EDGE_TYPE_OPTIONS: { value: ClusterFilters['edgeType']; label: string }[] 
   { value: 'condition_chain', label: 'Condition chain' },
 ];
 
-export const TAG_OPTIONS = [
-  'Fire', 'Cold', 'Lightning', 'Chaos', 'Physical',
-  'Poison', 'Bleed', 'Attack', 'Spell', 'Projectile',
-  'Melee', 'AoE', 'Minion', 'Aura', 'Duration',
-  'Totem', 'Trap', 'Mine',
-];
 
 @Component({
   selector: 'app-cluster-filters',
@@ -43,14 +38,24 @@ export const TAG_OPTIONS = [
   templateUrl: './cluster-filters.component.html',
   styleUrl: './cluster-filters.component.scss',
 })
-export class ClusterFiltersComponent {
+export class ClusterFiltersComponent implements OnInit {
   readonly store = inject(ClusterStore);
   private readonly http = inject(HttpClient);
+  private readonly clusterService = inject(ClusterService);
 
   readonly facetOptions = FACET_OPTIONS;
   readonly sortOptions = SORT_OPTIONS;
   readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
-  readonly tagOptions = TAG_OPTIONS;
+  readonly tagOptions = signal<string[]>([]);
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const tags = await this.clusterService.getTags();
+      this.tagOptions.set(tags);
+    } catch {
+      // fall back to empty — UI just won't show tags
+    }
+  }
 
   readonly elementQuery = signal('');
   readonly elementResults = signal<Element[]>([]);
