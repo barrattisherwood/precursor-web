@@ -63,6 +63,18 @@
     font-style: italic;
     letter-spacing: 0.06em;
   }
+
+  .beta {
+    font-family: $font-data;
+    font-size: 9px;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--c-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    vertical-align: super;
+    margin-left: 5px;
+  }
 }
 
 .nav-links {
