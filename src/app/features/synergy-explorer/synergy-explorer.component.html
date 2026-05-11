@@ -1,7 +1,9 @@
 <div class="explorer-layout">
   <div class="explorer-sidebar">
     <h1 class="page-heading">Synergy <em>Explorer</em></h1>
-    <p class="page-subheading">Click any element to pivot the graph</p>
+    <p class="page-subheading">
+      {{ store.viewMode() === 'clusters' ? 'Click a cluster to view details' : 'Click any element to pivot the graph' }}
+    </p>
 
     <div class="search-wrap">
       <input
@@ -35,9 +37,19 @@
         <p class="centre-label">Viewing</p>
         <p class="centre-name">{{ store.centre()!.name }}</p>
         <app-facet-chip [facet]="store.centre()!.facet" />
+
         <p class="centre-stats">
-          {{ store.nodes().length }} nodes · {{ store.links().length }} edges
+          @if (store.viewMode() === 'clusters') {
+            {{ store.clusterCount() }} clusters found
+          } @else {
+            {{ store.nodes().length }} nodes · {{ store.links().length }} edges
+          }
         </p>
+
+        <button class="mode-toggle" (click)="toggleViewMode()">
+          {{ store.viewMode() === 'clusters' ? 'Show all edges →' : '← Show clusters' }}
+        </button>
+
         <a class="detail-link" [routerLink]="['/elements', store.centre()!._id]">
           View details →
         </a>
@@ -46,21 +58,35 @@
 
     <div class="legend">
       <div class="divider"></div>
-      <p class="legend-heading">Nodes</p>
-      <div class="legend-rows">
-        <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-skill)"></span>Skill gem</div>
-        <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-support)"></span>Support gem</div>
-        <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-passive)"></span>Passive</div>
-        <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-ascendancy)"></span>Ascendancy</div>
-        <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-affix)"></span>Item affix</div>
-      </div>
-      <p class="legend-heading" style="margin-top: 12px">Edges</p>
-      <div class="legend-rows">
-        <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-keyword)"></span>Keyword synergy</div>
-        <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-condition)"></span>Condition chain</div>
-        <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-multiplication)"></span>Stat multiply</div>
-        <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-amplification)"></span>Condition amplify</div>
-      </div>
+      @if (store.viewMode() === 'clusters') {
+        <p class="legend-heading">Nodes</p>
+        <div class="legend-rows">
+          <div class="legend-row"><span class="legend-dot legend-dot--gold legend-dot--dashed"></span>Cluster</div>
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-gold)"></span>Selected element</div>
+        </div>
+        <p class="legend-heading" style="margin-top: 12px">Cluster size</p>
+        <div class="legend-rows">
+          <div class="legend-row"><span class="legend-note">Larger circle = higher hidden score</span></div>
+          <div class="legend-row"><span class="legend-note">Hover any node for details</span></div>
+          <div class="legend-row"><span class="legend-note">Click cluster to open detail</span></div>
+        </div>
+      } @else {
+        <p class="legend-heading">Nodes</p>
+        <div class="legend-rows">
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-skill)"></span>Skill gem</div>
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-support)"></span>Support gem</div>
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-passive)"></span>Passive</div>
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-ascendancy)"></span>Ascendancy</div>
+          <div class="legend-row"><span class="legend-dot" style="background: var(--c-facet-affix)"></span>Item affix</div>
+        </div>
+        <p class="legend-heading" style="margin-top: 12px">Edges</p>
+        <div class="legend-rows">
+          <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-keyword)"></span>Keyword synergy</div>
+          <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-condition)"></span>Condition chain</div>
+          <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-multiplication)"></span>Stat multiply</div>
+          <div class="legend-row"><span class="legend-line" style="background: var(--c-edge-amplification)"></span>Condition amplify</div>
+        </div>
+      }
     </div>
   </div>
 

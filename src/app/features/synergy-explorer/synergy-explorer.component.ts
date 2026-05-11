@@ -73,8 +73,18 @@ export class SynergyExplorerComponent implements OnInit {
   }
 
   onNodeClicked(node: GraphNode): void {
+    if (node.nodeType === 'cluster') {
+      // Cluster node click — navigate to cluster detail
+      window.location.href = `/clusters/${node.id}`;
+      return;
+    }
     this.store.pivot(node.id);
     this.searchQuery.set(node.name);
     this.searchResults.set([]);
+  }
+
+  toggleViewMode(): void {
+    const next = this.store.viewMode() === 'clusters' ? 'graph' : 'clusters';
+    this.store.setViewMode(next);
   }
 }

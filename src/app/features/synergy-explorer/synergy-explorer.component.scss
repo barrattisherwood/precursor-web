@@ -131,6 +131,24 @@
   margin-top: $space-sm;
 }
 
+.mode-toggle {
+  display: inline-block;
+  margin-top: $space-md;
+  margin-right: $space-md;
+  background: none;
+  border: 1px solid var(--c-border);
+  padding: $space-xs $space-sm;
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-ash);
+  letter-spacing: $ls-mono;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease;
+
+  &:hover { border-color: var(--c-ash); color: var(--c-text-primary); }
+}
+
 .detail-link {
   display: inline-block;
   margin-top: $space-md;
@@ -187,6 +205,23 @@
   width: 16px;
   height: 2px;
   flex-shrink: 0;
+}
+
+.legend-note {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-mono;
+  font-style: italic;
+}
+
+.legend-dot--gold {
+  background: var(--c-ash) !important;
+}
+
+.legend-dot--dashed {
+  background: none !important;
+  border: 1px dashed var(--c-ash);
 }
 
 @include mobile {

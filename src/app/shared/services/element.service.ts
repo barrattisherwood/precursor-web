@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Element, ElementWithEdges } from '../types/element.types';
+import { ElementClustersResponse } from '../types/cluster.types';
 
 @Injectable({ providedIn: 'root' })
 export class ElementService {
@@ -12,6 +13,12 @@ export class ElementService {
   getElement(id: string): Promise<ElementWithEdges> {
     return firstValueFrom(
       this.http.get<ElementWithEdges>(`${this.base}/elements/${id}`),
+    );
+  }
+
+  getElementClusters(id: string, limit = 12): Promise<ElementClustersResponse> {
+    return firstValueFrom(
+      this.http.get<ElementClustersResponse>(`${this.base}/elements/${id}/clusters`, { params: { limit: String(limit) } }),
     );
   }
 

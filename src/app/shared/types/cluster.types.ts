@@ -42,3 +42,7 @@ export interface ClustersResponse {
   clusters: SynergyCluster[];
   total: number;
 }
+
+export interface ElementClustersResponse {
+  clusters: SynergyCluster[];
+}
