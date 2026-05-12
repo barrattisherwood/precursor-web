@@ -41,6 +41,21 @@
     </div>
   </div>
 
+  @if (ascendancyOptions().length > 0) {
+    <div class="filter-group">
+      <label class="filter-label">Ascendancy</label>
+      <select
+        class="filter-select"
+        [value]="filters.ascendancyClass ?? ''"
+        (change)="setAscendancy($any($event.target).value)">
+        <option value="">All ascendancies</option>
+        @for (cls of ascendancyOptions(); track cls) {
+          <option [value]="cls">{{ cls }}</option>
+        }
+      </select>
+    </div>
+  }
+
   <div class="filter-group filter-group--toggles">
     <button class="btn-toggle" [class.active]="filters.spiritFeasible" (click)="toggleSpirit()">
       Spirit feasible

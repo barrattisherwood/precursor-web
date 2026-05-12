@@ -22,6 +22,7 @@ export class ClusterService {
     if (filters.edgeType) params['edge_type'] = filters.edgeType;
     if (filters.tags.length > 0) params['tags'] = filters.tags.join(',');
     if (filters.elementId) params['element_id'] = filters.elementId;
+    if (filters.ascendancyClass) params['ascendancy_class'] = filters.ascendancyClass;
 
     return firstValueFrom(
       this.http.get<ClustersResponse>(`${this.base}/clusters`, { params }),
@@ -31,6 +32,12 @@ export class ClusterService {
   getTags(): Promise<string[]> {
     return firstValueFrom(
       this.http.get<string[]>(`${this.base}/clusters/tags`),
+    );
+  }
+
+  getAscendancies(): Promise<string[]> {
+    return firstValueFrom(
+      this.http.get<string[]>(`${this.base}/clusters/ascendancies`),
     );
   }
 

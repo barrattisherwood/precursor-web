@@ -36,6 +36,7 @@ export interface ClusterFilters {
   tags: string[];
   elementId: string | null;
   elementName: string | null;
+  ascendancyClass: string | null;
 }
 
 export interface ClustersResponse {

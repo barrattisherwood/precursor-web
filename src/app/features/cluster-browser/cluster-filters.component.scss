@@ -110,6 +110,41 @@
   }
 }
 
+.filter-select {
+  font-family: $font-ui;
+  font-size: $text-micro;
+  letter-spacing: $ls-wide;
+  text-transform: uppercase;
+  padding: 6px $space-md;
+  background: transparent;
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 160px;
+
+  &:hover {
+    border-color: var(--c-gold-dim);
+    color: var(--c-text-secondary);
+  }
+
+  &:focus {
+    border-color: var(--c-gold-dim);
+  }
+
+  option {
+    background: var(--c-base);
+    color: var(--c-text-primary);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+}
+
 .filter-group--element-search {
   flex-basis: 300px;
 }

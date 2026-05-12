@@ -19,6 +19,7 @@ export class ClusterStore {
     tags: [],
     elementId: null,
     elementName: null,
+    ascendancyClass: null,
   });
 
   readonly clusters = this._clusters.asReadonly();
