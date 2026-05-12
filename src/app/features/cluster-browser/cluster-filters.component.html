@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  @if (ascendancyOptions().length > 0) {
+  @if (ascendancyGroups().length > 0) {
     <div class="filter-group">
       <label class="filter-label">Ascendancy</label>
       <select
@@ -49,8 +49,12 @@
         [value]="filters.ascendancyClass ?? ''"
         (change)="setAscendancy($any($event.target).value)">
         <option value="">All ascendancies</option>
-        @for (cls of ascendancyOptions(); track cls) {
-          <option [value]="cls">{{ cls }}</option>
+        @for (group of ascendancyGroups(); track group.base_class) {
+          <optgroup [label]="group.base_class">
+            @for (asc of group.ascendancies; track asc) {
+              <option [value]="asc">{{ asc }}</option>
+            }
+          </optgroup>
         }
       </select>
     </div>

@@ -47,7 +47,7 @@ export class ClusterFiltersComponent implements OnInit {
   readonly sortOptions = SORT_OPTIONS;
   readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
   readonly tagOptions = signal<string[]>([]);
-  readonly ascendancyOptions = signal<string[]>([]);
+  readonly ascendancyGroups = signal<{ base_class: string; ascendancies: string[] }[]>([]);
 
   async ngOnInit(): Promise<void> {
     try {
@@ -56,7 +56,7 @@ export class ClusterFiltersComponent implements OnInit {
         this.clusterService.getAscendancies(),
       ]);
       this.tagOptions.set(tags);
-      this.ascendancyOptions.set(ascendancies);
+      this.ascendancyGroups.set(ascendancies);
     } catch {
       // fall back to empty — UI just won't show tags or ascendancy filter
     }
