@@ -47,7 +47,7 @@ export class ClusterFiltersComponent implements OnInit {
   readonly sortOptions = SORT_OPTIONS;
   readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
   readonly tagOptions = signal<string[]>([]);
-  readonly ascendancyGroups = signal<{ base_class: string; ascendancies: string[] }[]>([]);
+  readonly ascendancyGroups = signal<{ base_class: string; ascendancies: { id: string; name: string }[] }[]>([]);
 
   async ngOnInit(): Promise<void> {
     try {

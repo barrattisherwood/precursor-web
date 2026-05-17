@@ -35,9 +35,9 @@ export class ClusterService {
     );
   }
 
-  getAscendancies(): Promise<{ base_class: string; ascendancies: string[] }[]> {
+  getAscendancies(): Promise<{ base_class: string; ascendancies: { id: string; name: string }[] }[]> {
     return firstValueFrom(
-      this.http.get<{ base_class: string; ascendancies: string[] }[]>(`${this.base}/clusters/ascendancies`),
+      this.http.get<{ base_class: string; ascendancies: { id: string; name: string }[] }[]>(`${this.base}/clusters/ascendancies`),
     );
   }
 

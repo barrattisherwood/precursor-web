@@ -51,8 +51,8 @@
         <option value="">All ascendancies</option>
         @for (group of ascendancyGroups(); track group.base_class) {
           <optgroup [label]="group.base_class">
-            @for (asc of group.ascendancies; track asc) {
-              <option [value]="asc">{{ asc }}</option>
+            @for (asc of group.ascendancies; track asc.id) {
+              <option [value]="asc.id">{{ asc.name }}</option>
             }
           </optgroup>
         }
