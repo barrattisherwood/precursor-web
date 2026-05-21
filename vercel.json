@@ -7,6 +7,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://precursor-api-production.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
