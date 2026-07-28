@@ -1,15 +1,27 @@
-$font-display: 'Cormorant Garamond', Georgia, serif;
-$font-ui:      'Syne', system-ui, sans-serif;
-$font-data:    'JetBrains Mono', 'Courier New', monospace;
+// Role 1: Display / Headings / Logo / Card titles
+// Based on Roman stone inscriptions. Cold, precise, ancient authority.
+$font-display: 'Cinzel', Georgia, serif;
 
-$text-display: 36px;
-$text-heading: 22px;
-$text-title:   15px;
-$text-body:    14px;
-$text-label:   11px;
-$text-micro:   10px;
+// Role 2: Body / UI / Nav / Descriptions
+// Weight 300 is the working weight — thin strokes read as precise.
+$font-ui: 'Raleway', system-ui, sans-serif;
 
-$ls-display: -0.02em;
-$ls-wide:     0.14em;
-$ls-normal:   0.06em;
-$ls-mono:     0.04em;
+// Role 3: Data / Labels / Scores / Metadata
+// Military-technical character. Every number, stat, score, label.
+$font-data: 'Share Tech Mono', 'Courier New', monospace;
+
+// Scale
+$text-display-hero: 42px;   // count hero (214 Clusters)
+$text-display:      28px;   // page headings
+$text-title:        13px;   // card names
+$text-body:         12px;   // descriptions, reveal text
+$text-label:        10px;   // nav links, button text
+$text-micro:         9px;   // chip labels, metadata
+$text-nano:          8px;   // secondary metadata, timestamps
+
+// Letter spacing
+$ls-logo:    0.26em;   // PRECURSOR.NEXUS
+$ls-heading: 0.04em;   // page headings
+$ls-label:   0.16em;   // nav links, uppercase labels
+$ls-micro:   0.12em;   // chip text
+$ls-data:    0.06em;   // data values

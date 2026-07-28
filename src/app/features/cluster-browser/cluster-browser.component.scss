@@ -1,6 +1,40 @@
 @use '../../../styles/typography' as *;
 @use '../../../styles/layout' as *;
 
+.result-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 2px;
+  margin: 4px 0;
+}
+
+.rl-count {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rl-sorts {
+  display: flex;
+  gap: 16px;
+}
+
+.rl-sort {
+  font-family: $font-data;
+  font-size: $text-micro;
+  color: var(--c-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 160ms;
+
+  &:hover { color: var(--c-text-secondary); }
+  &.active { color: var(--c-accent); }
+}
+
 .cluster-list {
   margin-top: $space-xl;
 }
@@ -9,7 +43,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   margin-top: $space-2xl;
 }
@@ -20,41 +54,10 @@
   gap: 16px;
   margin-top: $space-xl;
 
-  .btn-page {
-    font-family: $font-data;
-    font-size: $text-label;
-    letter-spacing: $ls-mono;
-    color: var(--c-text-muted);
-    background: none;
-    border: 1px solid var(--c-border);
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-
-    &:hover:not(:disabled) {
-      border-color: var(--c-border-hover);
-      color: var(--c-text-secondary);
-    }
-
-    &:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-  }
-
   .page-info {
     font-family: $font-data;
     font-size: $text-label;
-    letter-spacing: $ls-mono;
+    letter-spacing: $ls-data;
     color: var(--c-text-muted);
   }
-}
-
-.result-count {
-  font-family: $font-data;
-  font-size: $text-micro;
-  color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
-  text-transform: uppercase;
-  margin-top: $space-xl;
 }

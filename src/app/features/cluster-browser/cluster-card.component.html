@@ -1,44 +1,53 @@
 <article class="cluster-card" (click)="navigate()" (keydown.enter)="navigate()" tabindex="0" role="button">
   <app-score-bar [score]="cluster().hidden_score" />
 
-  <h2 class="card-title">{{ cluster().description || 'Synergy Cluster' }}</h2>
-
-  @if (tags.length > 0) {
-    <div class="card-tags">
-      @for (tag of tags; track tag) {
-        <span class="card-tag">{{ tag }}</span>
-      }
+  <div class="card-main">
+    <div class="card-top">
+      <div class="card-left">
+        <h2 class="card-name">{{ cluster().description || 'Synergy Cluster' }}</h2>
+      </div>
+      <div class="card-score-col">
+        <div class="score-bar-v">
+          <div class="score-bar-fill" [style.height]="scoreBarHeight"></div>
+        </div>
+        <div class="card-score-num">{{ hiddenScore }}</div>
+      </div>
     </div>
-  }
 
-  <div class="card-footer">
-    <div class="chip-row">
+    <div class="card-tags">
       @for (fc of facetCounts; track fc.facet) {
         <app-facet-chip [facet]="$any(fc.facet)" />
         @if (fc.count > 1) {
           <span class="chip-count">×{{ fc.count }}</span>
         }
       }
-      <span class="edge-type-badge">{{ edgeTypeLabel }}</span>
+      @for (tag of tags; track tag) {
+        <span class="card-tag">{{ tag }}</span>
+      }
+      @if (!cluster().spirit_feasible) {
+        <span class="badge badge--warning">Spirit limit</span>
+      }
+      @if (cluster().combo_gated) {
+        <span class="badge badge--muted">Combo gated</span>
+      }
     </div>
-    <span class="card-score">{{ hiddenScore }}</span>
   </div>
 
-  @if (!cluster().spirit_feasible) {
-    <span class="badge badge--warning">Spirit limit</span>
-  }
-  @if (cluster().combo_gated) {
-    <span class="badge badge--muted">Combo gated</span>
-  }
-
-  <div class="card-tooltip">
-    <div class="tooltip-stats">
-      <span>Hidden <strong>{{ hiddenScore }}</strong></span>
-      <span>Theoretical <strong>{{ cluster().theoretical_score.toFixed(2) }}</strong></span>
-      <span>Usage <strong>{{ usagePct }}%</strong></span>
-    </div>
-    <div class="tooltip-meta">
-      {{ elements.length }} elements · {{ cluster().edges.length }} connections
+  <div class="card-reveal">
+    <div class="card-reveal-inner">
+      <div class="cr-stat">
+        <div class="cr-stat-label">Ladder Usage</div>
+        <div class="cr-stat-value highlight">{{ usagePct }}%</div>
+      </div>
+      <div class="cr-stat">
+        <div class="cr-stat-label">Edge Type</div>
+        <div class="cr-stat-value">{{ edgeTypeLabel }}</div>
+      </div>
+      <div class="cr-stat">
+        <div class="cr-stat-label">Facets</div>
+        <div class="cr-stat-value">{{ facetCounts.length }} of 5</div>
+      </div>
+      <div class="cr-chain">{{ cluster().description }}</div>
     </div>
   </div>
 </article>

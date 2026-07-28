@@ -14,7 +14,7 @@ import { Component, input, computed } from '@angular/core';
     }
     .score-bar-fill {
       height: 1px;
-      background: linear-gradient(90deg, var(--c-gold-dim), var(--c-gold));
+      background: linear-gradient(90deg, var(--c-accent-dim), var(--c-accent));
       transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1);
     }
   `],

@@ -8,7 +8,7 @@
   left: 0;
   right: 0;
   height: $navbar-height;
-  background: rgba(10, 9, 7, 0.95);
+  background: var(--c-base);
   border-bottom: 1px solid var(--c-border);
   display: flex;
   align-items: center;
@@ -17,30 +17,23 @@
   z-index: 100;
   transition: background 300ms ease;
 
-  // Subtle inner glow on the bottom border — tarnished gold shimmer
   &::after {
     content: '';
     position: absolute;
     bottom: -1px;
-    left: 10%;
-    right: 10%;
+    left: 0;
+    right: 0;
     height: 1px;
     background: linear-gradient(
-      90deg,
-      transparent,
-      var(--c-gold-dim) 30%,
-      var(--c-gold-dim) 70%,
-      transparent
+      90deg, transparent, var(--c-border-accent) 25%,
+      var(--c-border-accent) 75%, transparent
     );
-    opacity: 0;
-    transition: opacity 300ms ease;
   }
 
   &.scrolled {
-    background: rgba(10, 9, 7, 0.98);
+    background: rgba(7, 7, 9, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    &::after { opacity: 1; }
   }
 }
 
@@ -50,36 +43,28 @@
 
 .nav-logo {
   font-family: $font-display;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: $ls-logo;
   color: var(--c-text-primary);
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
 
-  // ".NEXUS" in tarnished gold italic
-  .accent {
-    color: var(--c-gold);
-    font-style: italic;
-    letter-spacing: 0.06em;
-  }
-
-  .beta {
+  .logo-sep   { color: var(--c-border-accent); }
+  .logo-nexus { color: var(--c-text-dim); font-weight: 400; letter-spacing: 0.2em; }
+  .logo-beta  {
     font-family: $font-data;
-    font-size: 9px;
-    font-weight: 400;
-    font-style: normal;
-    color: var(--c-text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    vertical-align: super;
-    margin-left: 5px;
+    font-size: 8px;
+    color: var(--c-text-ghost);
+    margin-left: 10px;
+    vertical-align: 3px;
+    letter-spacing: 0.08em;
   }
 }
 
 .nav-links {
   display: flex;
-  gap: $space-xl;
+  gap: 26px;
   align-items: center;
 
   @include mobile {
@@ -101,38 +86,33 @@
 
 .nav-link {
   font-family: $font-ui;
+  font-weight: 400;
   font-size: $text-label;
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
-  color: var(--c-text-muted);
+  color: var(--c-text-dim);
   cursor: pointer;
   position: relative;
   padding-bottom: 2px;
   text-decoration: none;
-  transition: color 200ms ease;
+  transition: color 180ms ease;
 
   &::after {
     content: '';
     position: absolute;
-    left: 0;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     height: 1px;
-    background: var(--c-gold);
+    background: var(--c-accent-dim);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 220ms ease;
+    transition: transform 200ms ease;
   }
 
-  &:hover {
-    color: var(--c-gold);
-    &::after { transform: scaleX(1); }
-  }
-
-  &.active {
-    color: var(--c-gold);
-    &::after { transform: scaleX(1); }
-  }
+  &:hover { color: var(--c-text-muted); }
+  &.active { color: var(--c-accent); }
+  &.active::after { transform: scaleX(1); }
 }
 
 .nav-search {
@@ -144,22 +124,23 @@
 }
 
 .search-input {
-  font-family: $font-data;
-  font-size: $text-label;
-  letter-spacing: $ls-mono;
-  color: var(--c-text-secondary);
-  background: var(--c-surface);
+  background: transparent;
   border: 1px solid var(--c-border);
-  padding: 5px 10px;
-  width: 200px;
+  color: var(--c-text-muted);
+  font-family: $font-data;
+  font-size: 10px;
+  padding: 6px 11px;
+  width: 180px;
   outline: none;
-  transition: border-color 200ms ease, width 200ms ease;
+  letter-spacing: $ls-data;
+  border-radius: 0;
+  transition: border-color 200ms, color 200ms, width 200ms ease;
 
-  &::placeholder { color: var(--c-text-muted); }
-
+  &::placeholder { color: var(--c-text-ghost); }
   &:focus {
     border-color: var(--c-border-hover);
-    width: 240px;
+    color: var(--c-accent);
+    width: 220px;
   }
 }
 
@@ -169,7 +150,7 @@
   right: 0;
   width: 280px;
   background: var(--c-surface);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-border-accent);
   z-index: 200;
   max-height: 320px;
   overflow-y: auto;
@@ -190,10 +171,10 @@
 
 .result-facet {
   font-family: $font-data;
-  font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  font-size: $text-nano;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
-  color: var(--c-text-muted);
+  color: var(--c-text-ghost);
   width: 64px;
   flex-shrink: 0;
 }

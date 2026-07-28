@@ -5,7 +5,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
@@ -25,7 +25,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   text-decoration: none;
   transition: opacity 200ms ease;
@@ -37,7 +37,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   margin-top: $space-sm;
 }
 
@@ -51,13 +51,13 @@
 .meta-pill {
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   color: var(--c-text-muted);
   border: 1px solid var(--c-border);
   padding: 2px 6px;
 
   &--warning {
-    color: var(--c-warning);
+    color: var(--c-unique-text);
     border-color: rgba(226, 168, 75, 0.3);
     background: rgba(226, 168, 75, 0.08);
   }
@@ -67,7 +67,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
   margin-bottom: $space-lg;
 }
@@ -95,21 +95,21 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-secondary);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   flex: 1;
 }
 
 .stat-modifier {
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   padding: 1px 5px;
   border: 1px solid;
 
   &.modifier--increased { color: var(--c-ash); border-color: rgba(123, 163, 184, 0.3); }
   &.modifier--more      { color: var(--c-success); border-color: rgba(116, 196, 118, 0.3); }
-  &.modifier--added     { color: var(--c-warning); border-color: rgba(226, 168, 75, 0.3); }
+  &.modifier--added     { color: var(--c-unique-text); border-color: rgba(226, 168, 75, 0.3); }
   &.modifier--base      { color: var(--c-text-muted); border-color: var(--c-border); }
 }
 
@@ -117,14 +117,14 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .stat-condition {
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .edge-list {
@@ -146,7 +146,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .peer-name {
@@ -164,7 +164,7 @@
 .edge-type {
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
 
   &--keyword-overlap         { color: var(--c-edge-keyword); }
@@ -177,7 +177,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .cluster-list {
@@ -218,7 +218,7 @@
 .cluster-edge-type {
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
 
   &.edge-type--keyword-overlap         { color: var(--c-edge-keyword); }
@@ -230,7 +230,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   white-space: nowrap;
 }
 

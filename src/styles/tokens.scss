@@ -1,40 +1,55 @@
 :root {
-  // Base surfaces — warmer blacks, hint of deep brown-green like aged stone
-  --c-base:          #0a0907;   // near-black with warm undertone
-  --c-surface:       #110f0d;   // card background — stone dark
-  --c-raised:        #1a1612;   // elevated — aged wood/stone
-  --c-border:        #2e2620;   // default border — dark tarnish
-  --c-border-hover:  #5a4a35;   // hovered — warm bronze reveal
+  // Surfaces — blue-void blacks
+  --c-base:          #0a0a10;   // page background
+  --c-surface:       #0f0f18;   // card, panel
+  --c-raised:        #16161f;   // hover surface, elevated
+  --c-border:        #22222f;   // default border
+  --c-border-hover:  #303046;   // hovered border
+  --c-border-accent: #34344c;   // navbar bottom, active panel
 
-  // Text — parchment and ash, not pure white
-  --c-text-primary:   #e8dcc8;  // aged parchment — warm off-white
-  --c-text-secondary: #8a7660;  // worn leather — muted warm brown
-  --c-text-muted:     #4a3f32;  // deep shadow text
+  // Text — cool silver-white scale
+  --c-text-primary:   #eeeef8;  // headings, logo, card names
+  --c-text-secondary: #b4b4cc;  // body, descriptions
+  --c-text-muted:     #8484a8;  // labels, metadata
+  --c-text-dim:       #64648e;  // nav links at rest, filter labels
+  --c-text-ghost:     #4a4a70;  // placeholder, least important
 
-  // Primary accent — tarnished gold (replaces ash blue entirely)
-  --c-gold:          #c8a96e;   // tarnished gold — the primary accent
-  --c-gold-bright:   #e8c88a;   // highlight gold — hover states, active
-  --c-gold-dim:      #7a6040;   // dim gold — inactive, subtle
+  // Accent — cool slate-indigo only
+  --c-accent:        #7878c4;   // active nav, active filter chips
+  --c-accent-dim:    #48488a;   // card hover border, score bar top
+  --c-accent-ghost:  #2c2c4c;   // score bar base colour
 
-  // Secondary accent — blood / deep crimson (replaces ember orange)
-  --c-blood:         #8b2020;   // deep blood red — danger, condition chains
-  --c-blood-bright:  #b83030;   // brighter blood — hover on danger elements
+  // Facet colours — desaturated, dark
+  --c-facet-skill:      #3a2010;  // burnt umber, very dark
+  --c-facet-support:    #1a1a4a;  // deep navy
+  --c-facet-passive:    #0e2e1a;  // deep forest
+  --c-facet-ascendancy: #2a1030;  // deep purple
+  --c-facet-affix:      #141428;  // deep slate
 
-  // Facet colours — desaturated, darker, more in keeping with the palette
-  --c-facet-skill:      #c8943a;   // burnt gold
-  --c-facet-support:    #4a7a8a;   // deep teal-grey
-  --c-facet-passive:    #4a7a4a;   // dark forest green
-  --c-facet-ascendancy: #7a3a6a;   // deep purple-maroon
-  --c-facet-affix:      #5a5a8a;   // deep slate
+  // Facet text colours (on chip backgrounds)
+  --c-facet-skill-text:      #4a3018;
+  --c-facet-support-text:    #2a2a5a;
+  --c-facet-passive-text:    #184028;
+  --c-facet-ascendancy-text: #3a1848;
+  --c-facet-affix-text:      #282848;
 
-  // Edge type colours — D3 graph
-  --c-edge-keyword:        #c8943a;   // burnt gold — keyword_overlap
-  --c-edge-condition:      #8b2020;   // blood red — condition_chain
-  --c-edge-multiplication: #4a7a4a;   // forest green — stat_multiplication
-  --c-edge-amplification:  #7a3a6a;   // deep purple — condition_amplification
+  // Item rarity (PoE convention — only context where warm colours appear)
+  --c-unique:      #4a3010;   // unique item chip bg
+  --c-unique-text: #6a4818;   // unique item chip text
+  --c-unique-border: rgba(110,70,10,0.18);
+
+  // Condition tags (bleed, poison etc — blood red, dark)
+  --c-tag-bg:     rgba(90,20,20,0.08);
+  --c-tag-text:   #3a1818;
+  --c-tag-border: rgba(90,20,20,0.14);
+
+  // Edge type colours — D3 graph only
+  --c-edge-keyword:        #3a3a70;
+  --c-edge-condition:      #5a1a1a;
+  --c-edge-multiplication: #1a3a28;
+  --c-edge-amplification:  #2a1a3a;
 
   // Semantic
-  --c-danger:  #8b2020;
-  --c-success: #4a7a4a;
-  --c-warning: #c8943a;
+  --c-danger:  #5a1a1a;
+  --c-success: #1a3a28;
 }

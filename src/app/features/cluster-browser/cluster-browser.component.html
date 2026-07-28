@@ -1,8 +1,20 @@
 <div class="page-container">
-  <h1 class="page-heading">Hidden <em>Synergies</em></h1>
-  <p class="page-subheading">Underplayed build clusters · sorted by discovery potential</p>
+  <div class="page-eyebrow">Path of Exile 2</div>
+  <div class="page-count">
+    {{ clusterCount() }}<span class="count-label">Clusters</span>
+  </div>
+  <div class="page-meta">Underplayed build clusters · sorted by discovery potential</div>
 
   <app-cluster-filters />
+
+  <div class="result-line">
+    <div class="rl-count">{{ store.total() }} results</div>
+    <div class="rl-sorts">
+      <span class="rl-sort" [class.active]="sort() === 'hidden_score'" (click)="setSort('hidden_score')">Hidden Score ↓</span>
+      <span class="rl-sort" [class.active]="sort() === 'theoretical_score'" (click)="setSort('theoretical_score')">Theoretical</span>
+      <span class="rl-sort" [class.active]="sort() === 'usage_pct'" (click)="setSort('usage_pct')">Usage %</span>
+    </div>
+  </div>
 
   @if (store.loading()) {
     <div class="loading-indicator"></div>
@@ -24,10 +36,9 @@
 
   @if (store.total() > 0) {
     <div class="pagination">
-      <button class="btn-page" [disabled]="!store.hasPrev()" (click)="store.prevPage()">← Prev</button>
+      <button class="btn-secondary" [disabled]="!store.hasPrev()" (click)="store.prevPage()"><span>← Prev</span></button>
       <span class="page-info">{{ store.page() + 1 }} / {{ store.totalPages() }}</span>
-      <button class="btn-page" [disabled]="!store.hasNext()" (click)="store.nextPage()">Next →</button>
+      <button class="btn-secondary" [disabled]="!store.hasNext()" (click)="store.nextPage()"><span>Next →</span></button>
     </div>
-    <p class="result-count">{{ store.total() }} clusters</p>
   }
 </div>

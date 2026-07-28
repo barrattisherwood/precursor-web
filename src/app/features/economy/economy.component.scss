@@ -8,10 +8,10 @@
 
 .unavailable-heading {
   font-family: $font-display;
-  font-size: $text-heading;
+  font-size: $text-title;
   font-weight: 300;
   color: var(--c-text-primary);
-  letter-spacing: $ls-display;
+  letter-spacing: $ls-heading;
   margin-bottom: $space-lg;
 }
 
@@ -30,7 +30,7 @@
   margin-bottom: $space-xl;
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .meta-label {
@@ -62,7 +62,7 @@ th {
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
   text-align: left;
   padding: $space-sm $space-lg;
@@ -89,8 +89,8 @@ th {
 .rate-value {
   font-family: $font-data;
   font-size: $text-body;
-  color: var(--c-gold);
-  letter-spacing: $ls-mono;
+  color: var(--c-accent);
+  letter-spacing: $ls-data;
   padding: $space-sm $space-lg;
   text-align: right;
 }

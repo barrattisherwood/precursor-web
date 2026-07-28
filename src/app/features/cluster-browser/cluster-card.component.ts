@@ -30,6 +30,10 @@ export class ClusterCardComponent {
     return (this.cluster().usage_pct * 100).toFixed(1);
   }
 
+  get scoreBarHeight(): string {
+    return `${Math.round(this.cluster().hidden_score * 100)}%`;
+  }
+
   get hiddenScore(): string {
     return this.cluster().hidden_score.toFixed(2);
   }

@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -17,12 +17,6 @@ const FACET_OPTIONS = [
   { value: 'ascendancy_node', label: 'Ascendancy' },
   { value: 'item_affix', label: 'Item affix' },
   { value: 'unique_item', label: 'Unique' },
-];
-
-const SORT_OPTIONS: { value: ClusterFilters['sortBy']; label: string }[] = [
-  { value: 'hidden_score', label: 'Hidden score' },
-  { value: 'theoretical_score', label: 'Theoretical score' },
-  { value: 'usage_pct', label: 'Usage %' },
 ];
 
 const EDGE_TYPE_OPTIONS: { value: ClusterFilters['edgeType']; label: string }[] = [
@@ -44,10 +38,40 @@ export class ClusterFiltersComponent implements OnInit {
   private readonly clusterService = inject(ClusterService);
 
   readonly facetOptions = FACET_OPTIONS;
-  readonly sortOptions = SORT_OPTIONS;
   readonly edgeTypeOptions = EDGE_TYPE_OPTIONS;
   readonly tagOptions = signal<string[]>([]);
   readonly ascendancyGroups = signal<{ base_class: string; ascendancies: { id: string; name: string }[] }[]>([]);
+
+  readonly isOpen = signal(false);
+
+  toggle(): void {
+    this.isOpen.update(v => !v);
+  }
+
+  readonly activePills = computed(() => {
+    const f = this.store.filters();
+    const pills: string[] = [];
+
+    const facetLabel = FACET_OPTIONS.find(o => o.value === f.facet)?.label;
+    if (f.facet && facetLabel) pills.push(facetLabel);
+
+    const edgeLabel = EDGE_TYPE_OPTIONS.find(o => o.value === f.edgeType)?.label;
+    if (f.edgeType && edgeLabel) pills.push(edgeLabel);
+
+    if (f.ascendancyClass) {
+      const name = this.ascendancyGroups()
+        .flatMap(g => g.ascendancies)
+        .find(a => a.id === f.ascendancyClass)?.name;
+      pills.push(name ?? f.ascendancyClass);
+    }
+
+    if (f.spiritFeasible) pills.push('Spirit feasible');
+    if (f.leagueScoped) pills.push('Include league');
+    for (const tag of f.tags) pills.push(tag);
+    if (f.elementName) pills.push(f.elementName);
+
+    return pills;
+  });
 
   async ngOnInit(): Promise<void> {
     try {
@@ -72,10 +96,6 @@ export class ClusterFiltersComponent implements OnInit {
 
   setFacet(value: string | null): void {
     this.store.updateFilter({ facet: value });
-  }
-
-  setSort(value: ClusterFilters['sortBy']): void {
-    this.store.updateFilter({ sortBy: value });
   }
 
   toggleSpirit(): void {

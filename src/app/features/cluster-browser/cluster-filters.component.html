@@ -1,117 +1,121 @@
-<div class="filters">
-  <div class="filter-group">
-    <label class="filter-label">Facet</label>
-    <div class="btn-group">
-      @for (opt of facetOptions; track opt.value) {
-        <button
-          class="btn-filter"
-          [class.active]="filters.facet === opt.value"
-          (click)="setFacet(opt.value)">
-          {{ opt.label }}
-        </button>
+<div class="filter-bar" [class.is-open]="isOpen()" (click)="toggle()">
+  <div class="fb-left">
+    <div class="fb-icon"><span></span><span></span><span></span></div>
+    <span class="fb-label">Filters</span>
+    <div class="fb-pills">
+      @for (pill of activePills(); track pill) {
+        <span class="fb-pill">{{ pill }}</span>
       }
     </div>
   </div>
-
-  <div class="filter-group">
-    <label class="filter-label">Sort</label>
-    <div class="btn-group">
-      @for (opt of sortOptions; track opt.value) {
-        <button
-          class="btn-filter"
-          [class.active]="filters.sortBy === opt.value"
-          (click)="setSort(opt.value)">
-          {{ opt.label }}
-        </button>
-      }
-    </div>
+  <div class="fb-right">
+    <span class="fb-count">{{ activePills().length }} active</span>
+    <div class="chevron" [class.open]="isOpen()"></div>
   </div>
+</div>
 
-  <div class="filter-group">
-    <label class="filter-label">Edge type</label>
-    <div class="btn-group">
-      @for (opt of edgeTypeOptions; track opt.value) {
-        <button
-          class="btn-filter"
-          [class.active]="filters.edgeType === opt.value"
-          (click)="setEdgeType(opt.value)">
-          {{ opt.label }}
-        </button>
-      }
-    </div>
-  </div>
-
-  @if (ascendancyGroups().length > 0) {
+<div class="filter-panel" [class.open]="isOpen()" (click)="$event.stopPropagation()">
+  <div class="fp-inner">
     <div class="filter-group">
-      <label class="filter-label">Ascendancy</label>
-      <select
-        class="filter-select"
-        [value]="filters.ascendancyClass ?? ''"
-        (change)="setAscendancy($any($event.target).value)">
-        <option value="">All ascendancies</option>
-        @for (group of ascendancyGroups(); track group.base_class) {
-          <optgroup [label]="group.base_class">
-            @for (asc of group.ascendancies; track asc.id) {
-              <option [value]="asc.id">{{ asc.name }}</option>
-            }
-          </optgroup>
+      <label class="filter-label">Facet</label>
+      <div class="btn-group">
+        @for (opt of facetOptions; track opt.value) {
+          <button
+            class="btn-filter"
+            [class.active]="filters.facet === opt.value"
+            (click)="setFacet(opt.value)">
+            {{ opt.label }}
+          </button>
         }
-      </select>
-    </div>
-  }
-
-  <div class="filter-group filter-group--toggles">
-    <button class="btn-toggle" [class.active]="filters.spiritFeasible" (click)="toggleSpirit()">
-      Spirit feasible
-    </button>
-    <button class="btn-toggle" [class.active]="filters.leagueScoped" (click)="toggleLeague()">
-      Include league
-    </button>
-  </div>
-
-  <div class="filter-group filter-group--tags">
-    <label class="filter-label">Tags <span class="filter-label-hint">(must include all)</span></label>
-    <div class="tag-grid">
-      @for (tag of tagOptions(); track tag) {
-        <button
-          class="btn-tag"
-          [class.active]="isTagActive(tag)"
-          (click)="toggleTag(tag)">
-          {{ tag }}
-        </button>
-      }
-    </div>
-  </div>
-
-  <div class="filter-group filter-group--element-search">
-    <label class="filter-label">Must include element</label>
-    @if (filters.elementName) {
-      <div class="element-pill">
-        <span class="element-pill__name">{{ filters.elementName }}</span>
-        <button class="element-pill__clear" (click)="clearElement()" aria-label="Clear element filter">×</button>
       </div>
-    } @else {
-      <div class="element-search-wrap">
-        <input
-          class="element-search-input"
-          type="text"
-          placeholder="Search gems, passives, uniques…"
-          [value]="elementQuery()"
-          (input)="onElementInput($any($event.target).value)"
-          (blur)="closeDropdown()"
-          autocomplete="off"
-        />
-        @if (searchOpen()) {
-          <ul class="element-dropdown">
-            @for (el of elementResults(); track el._id) {
-              <li class="element-dropdown__item" (mousedown)="selectElement(el)">
-                <span class="element-dropdown__name">{{ el.name }}</span>
-                <span class="element-dropdown__facet">{{ el.facet | titlecase }}</span>
-              </li>
-            }
-          </ul>
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label">Edge type</label>
+      <div class="btn-group">
+        @for (opt of edgeTypeOptions; track opt.value) {
+          <button
+            class="btn-filter"
+            [class.active]="filters.edgeType === opt.value"
+            (click)="setEdgeType(opt.value)">
+            {{ opt.label }}
+          </button>
         }
+      </div>
+    </div>
+
+    @if (ascendancyGroups().length > 0) {
+      <div class="filter-group">
+        <label class="filter-label">Ascendancy</label>
+        <select
+          class="filter-select"
+          [value]="filters.ascendancyClass ?? ''"
+          (change)="setAscendancy($any($event.target).value)">
+          <option value="">All ascendancies</option>
+          @for (group of ascendancyGroups(); track group.base_class) {
+            <optgroup [label]="group.base_class">
+              @for (asc of group.ascendancies; track asc.id) {
+                <option [value]="asc.id">{{ asc.name }}</option>
+              }
+            </optgroup>
+          }
+        </select>
       </div>
     }
+
+    <div class="filter-group filter-group--toggles">
+      <button class="btn-toggle" [class.active]="filters.spiritFeasible" (click)="toggleSpirit()">
+        Spirit feasible
+      </button>
+      <button class="btn-toggle" [class.active]="filters.leagueScoped" (click)="toggleLeague()">
+        Include league
+      </button>
+    </div>
+
+    <div class="filter-group filter-group--tags">
+      <label class="filter-label">Tags <span class="filter-label-hint">(must include all)</span></label>
+      <div class="tag-grid">
+        @for (tag of tagOptions(); track tag) {
+          <button
+            class="btn-tag"
+            [class.active]="isTagActive(tag)"
+            (click)="toggleTag(tag)">
+            {{ tag }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="filter-group filter-group--element-search">
+      <label class="filter-label">Must include element</label>
+      @if (filters.elementName) {
+        <div class="element-pill">
+          <span class="element-pill__name">{{ filters.elementName }}</span>
+          <button class="element-pill__clear" (click)="clearElement()" aria-label="Clear element filter">×</button>
+        </div>
+      } @else {
+        <div class="element-search-wrap">
+          <input
+            class="element-search-input"
+            type="text"
+            placeholder="Search gems, passives, uniques…"
+            [value]="elementQuery()"
+            (input)="onElementInput($any($event.target).value)"
+            (blur)="closeDropdown()"
+            autocomplete="off"
+          />
+          @if (searchOpen()) {
+            <ul class="element-dropdown">
+              @for (el of elementResults(); track el._id) {
+                <li class="element-dropdown__item" (mousedown)="selectElement(el)">
+                  <span class="element-dropdown__name">{{ el.name }}</span>
+                  <span class="element-dropdown__facet">{{ el.facet | titlecase }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+    </div>
   </div>
 </div>

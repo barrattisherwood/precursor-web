@@ -264,7 +264,7 @@ export class D3GraphService {
         return (this.FACET_COLOURS[d.facet] ?? '#999') + '22';
       })
       .attr('stroke', d => {
-        if (d.id === pivotId) return this.getCSSVar('--c-gold');
+        if (d.id === pivotId) return this.getCSSVar('--c-accent');
         if (d.nodeType === 'cluster') return this.getCSSVar('--c-ash');
         return this.FACET_COLOURS[d.facet] ?? '#999';
       })
@@ -285,7 +285,7 @@ export class D3GraphService {
       .attr('font-size', d => d.nodeType === 'cluster' ? 10 : 12)
       .attr('font-weight', d => d.id === pivotId ? 'bold' : 'normal')
       .attr('text-anchor', 'middle')
-      .attr('fill', d => d.id === pivotId ? this.getCSSVar('--c-gold') : this.getCSSVar('--c-text-secondary'))
+      .attr('fill', d => d.id === pivotId ? this.getCSSVar('--c-accent') : this.getCSSVar('--c-text-secondary'))
       .attr('pointer-events', 'none');
 
     // Hover label for non-labelled nodes

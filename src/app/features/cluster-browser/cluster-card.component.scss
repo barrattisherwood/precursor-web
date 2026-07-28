@@ -5,189 +5,146 @@
   background: var(--c-surface);
   border: 1px solid var(--c-border);
   border-left: 2px solid transparent;
-  padding: $space-xl $space-lg;
   cursor: pointer;
-  margin-bottom: 1px;
+  overflow: hidden;
   border-radius: 0;
-  position: relative;
-  transition:
-    border-left-color 220ms ease,
-    transform 240ms ease,
-    background 220ms ease,
-    box-shadow 220ms ease;
+  margin-bottom: 1px;
   display: block;
   width: 100%;
   text-align: left;
-
-  // Subtle inner depth — card feels recessed into stone
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  position: relative;
+  transition:
+    border-left-color 220ms ease,
+    background       200ms ease,
+    transform         240ms ease,
+    box-shadow        240ms ease;
 
   &:hover {
-    border-left-color: var(--c-gold);
-    transform: translateX(4px);
+    border-left-color: var(--c-accent-dim);
     background: var(--c-raised);
-    z-index: 1;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.03),
-      -4px 0 20px rgba(200, 169, 110, 0.06);
+    transform: translateX(3px);
+    box-shadow: -4px 0 24px rgba(60, 60, 120, 0.08);
   }
 
   &:focus-visible {
-    outline: 1px solid var(--c-gold);
+    outline: 1px solid var(--c-accent);
     outline-offset: -1px;
   }
 }
 
-.card-title {
-  font-family: $font-ui;
-  font-size: 15px;
-  color: var(--c-text-primary);
-  margin-bottom: $space-xs;
-  line-height: 1.4;
-  font-weight: 500;
-  letter-spacing: 0;
-  margin-top: $space-md;
+// Main row — always visible
+.card-main {
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.card-left { flex: 1; min-width: 0; }
+
+// Score column — right side
+.card-score-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.score-bar-v {
+  width: 2px;
+  height: 40px;
+  background: var(--c-border);
+  position: relative;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.score-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(to top, var(--c-accent-ghost), var(--c-accent-dim));
+  transition: height 600ms cubic-bezier(0.4, 0, 0.2, 1),
+              background 220ms ease;
+}
+
+.cluster-card:hover .score-bar-fill {
+  background: linear-gradient(to top, var(--c-accent-dim), var(--c-accent));
+}
+
+.card-score-num {
+  font-family: $font-display;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--c-text-dim);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  transition: color 220ms ease;
+}
+
+.cluster-card:hover .card-score-num { color: var(--c-accent); }
+
+.card-name {
+  font-family: $font-display;
+  font-size: $text-title;
+  font-weight: 400;
+  color: var(--c-text-secondary);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  transition: color 220ms ease;
+}
+
+.cluster-card:hover .card-name { color: var(--c-text-primary); }
 
 .card-tags {
   display: flex;
+  align-items: center;
+  gap: 4px;
   flex-wrap: wrap;
-  gap: 3px;
-  margin-bottom: $space-md;
 }
 
 .card-tag {
   font-family: $font-data;
-  font-size: 10px;
-  letter-spacing: $ls-mono;
+  font-size: $text-nano;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   padding: 2px 6px;
-  border: 1px solid rgba(122, 96, 64, 0.4);
-  color: var(--c-text-secondary);
-  background: rgba(122, 96, 64, 0.07);
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  background: var(--c-raised);
 }
 
 .chip-count {
   font-family: $font-data;
-  font-size: 10px;
-  letter-spacing: 0;
+  font-size: $text-nano;
   color: var(--c-text-muted);
   margin-right: $space-xs;
   align-self: center;
 }
 
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: $space-sm;
-}
-
-.chip-row {
-  display: flex;
-  gap: $space-xs;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.edge-type-badge {
-  font-family: $font-data;
-  font-size: $text-micro;
-  letter-spacing: $ls-mono;
-  color: var(--c-text-muted);
-  text-transform: uppercase;
-  margin-left: auto;
-}
-
-.card-score {
-  font-family: $font-data;
-  font-size: $text-label;
-  color: var(--c-gold-dim);
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  transition: color 220ms ease;
-}
-
-.cluster-card:hover .card-score {
-  color: var(--c-gold);
-}
-
-.card-tooltip {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  z-index: 200;
-  min-width: 280px;
-  background: var(--c-raised);
-  border: 1px solid var(--c-border-hover);
-  padding: $space-md;
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 120ms ease;
-  display: flex;
-  flex-direction: column;
-  gap: $space-sm;
-}
-
-.cluster-card:hover .card-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.tooltip-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-}
-
-.tooltip-tag {
-  font-family: $font-data;
-  font-size: 10px;
-  letter-spacing: $ls-mono;
-  text-transform: uppercase;
-  padding: 2px 5px;
-  border: 1px solid var(--c-gold-dim);
-  color: var(--c-gold-dim);
-  background: rgba(200, 169, 110, 0.05);
-}
-
-.tooltip-stats {
-  display: flex;
-  gap: $space-md;
-  font-family: $font-data;
-  font-size: 10px;
-  color: var(--c-text-secondary);
-  letter-spacing: $ls-mono;
-
-  strong {
-    color: var(--c-text-primary);
-    font-weight: 600;
-  }
-}
-
-.tooltip-meta {
-  font-family: $font-data;
-  font-size: 10px;
-  color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
-}
-
 .badge {
   display: inline-block;
   font-family: $font-data;
-  font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  font-size: $text-nano;
+  letter-spacing: $ls-data;
+  text-transform: uppercase;
   padding: 2px 6px;
   border-radius: 0;
-  margin-top: $space-sm;
-  margin-right: $space-xs;
   border: 1px solid;
 
   &--warning {
-    color: var(--c-warning);
-    border-color: rgba(200, 148, 58, 0.3);
-    background: rgba(200, 148, 58, 0.08);
+    color: var(--c-unique-text);
+    border-color: var(--c-unique-border);
+    background: rgba(74, 48, 16, 0.08);
   }
 
   &--muted {
@@ -195,4 +152,64 @@
     border-color: var(--c-border);
     background: transparent;
   }
+}
+
+// REVEAL layer — slides in on hover
+.card-reveal {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 320ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity    260ms ease 40ms,
+    transform  260ms ease 40ms;
+  border-top: 1px solid transparent;
+}
+
+.cluster-card:hover .card-reveal {
+  max-height: 140px;
+  opacity: 1;
+  transform: translateY(0);
+  border-top-color: var(--c-border);
+}
+
+.card-reveal-inner {
+  padding: 10px 16px 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.cr-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cr-stat-label {
+  font-family: $font-data;
+  font-size: $text-nano;
+  letter-spacing: 0.18em;
+  color: var(--c-text-ghost);
+  text-transform: uppercase;
+}
+
+.cr-stat-value {
+  font-family: $font-data;
+  font-size: 10px;
+  color: var(--c-text-dim);
+  letter-spacing: $ls-data;
+
+  &.highlight { color: var(--c-accent); }
+}
+
+.cr-chain {
+  grid-column: 1 / -1;
+  font-family: $font-ui;
+  font-weight: 300;
+  font-size: 11px;
+  color: var(--c-text-dim);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
 }

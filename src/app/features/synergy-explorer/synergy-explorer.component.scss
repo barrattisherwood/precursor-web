@@ -30,7 +30,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .search-wrap {
@@ -47,7 +47,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-primary);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   outline: none;
   transition: border-color 200ms ease;
 
@@ -110,14 +110,14 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   margin-bottom: $space-xs;
 }
 
 .centre-name {
   font-family: $font-display;
-  font-size: $text-heading;
+  font-size: $text-title;
   color: var(--c-text-primary);
   font-weight: 400;
   margin-bottom: $space-sm;
@@ -127,7 +127,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   margin-top: $space-sm;
 }
 
@@ -141,7 +141,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   cursor: pointer;
   transition: border-color 200ms ease, color 200ms ease;
@@ -155,7 +155,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   text-decoration: none;
   transition: opacity 200ms ease;
@@ -171,7 +171,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
   margin-bottom: $space-sm;
 }
@@ -189,7 +189,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .legend-dot {
@@ -211,7 +211,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   font-style: italic;
 }
 

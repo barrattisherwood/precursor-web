@@ -5,7 +5,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
@@ -31,7 +31,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 
   em {
     color: var(--c-ash);
@@ -53,13 +53,13 @@
   display: inline-block;
   font-family: $font-data;
   font-size: $text-micro;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   padding: 2px 6px;
   border-radius: 0;
   border: 1px solid;
 
   &--warning {
-    color: var(--c-warning);
+    color: var(--c-unique-text);
     border-color: rgba(226, 168, 75, 0.3);
     background: rgba(226, 168, 75, 0.08);
   }
@@ -103,35 +103,35 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .breakdown-value {
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-ash);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .breakdown-multiplier {
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-secondary);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .breakdown-note {
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .section-heading {
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
   margin-bottom: $space-lg;
 }
@@ -194,7 +194,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-wide;
+  letter-spacing: $ls-label;
   text-transform: uppercase;
   margin: 0 0 $space-sm;
 }
@@ -202,8 +202,8 @@
 .tooltip-line {
   font-family: $font-data;
   font-size: $text-label;
-  color: var(--c-gold);
-  letter-spacing: $ls-mono;
+  color: var(--c-accent);
+  letter-spacing: $ls-data;
   line-height: 1.7;
   margin: 0;
 
@@ -221,7 +221,7 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   margin-left: auto;
 }
 
@@ -252,13 +252,13 @@
   font-family: $font-data;
   font-size: $text-micro;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 }
 
 .edge-type {
   font-family: $font-data;
   font-size: $text-label;
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
 
   &--keyword-overlap        { color: var(--c-edge-keyword); }
   &--condition-chain        { color: var(--c-edge-condition); }
@@ -270,7 +270,7 @@
   font-family: $font-data;
   font-size: $text-label;
   color: var(--c-text-muted);
-  letter-spacing: $ls-mono;
+  letter-spacing: $ls-data;
   white-space: nowrap;
   margin-left: auto;
 }
