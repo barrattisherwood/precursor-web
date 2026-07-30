@@ -97,13 +97,13 @@
   font-family: $font-display;
   font-size: $text-title;
   font-weight: 400;
-  color: var(--c-text-secondary);
+  color: var(--c-text-muted);
   letter-spacing: 0.02em;
   line-height: 1.4;
   transition: color 220ms ease;
 }
 
-.cluster-card:hover .card-name { color: var(--c-text-primary); }
+.cluster-card:hover .card-name { color: var(--c-text-secondary); }
 
 .card-tags {
   display: flex;
@@ -144,7 +144,7 @@
   &--warning {
     color: var(--c-unique-text);
     border-color: var(--c-unique-border);
-    background: rgba(74, 48, 16, 0.08);
+    background: rgba(74, 48, 16, 0.14);
   }
 
   &--muted {

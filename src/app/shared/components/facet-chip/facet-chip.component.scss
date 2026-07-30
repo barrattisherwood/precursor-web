@@ -12,32 +12,32 @@
   border-radius: 0;
 
   &--skill {
-    background: rgba(58, 32, 16, 0.08);
+    background: rgba(58, 32, 16, 0.14);
     color: var(--c-facet-skill-text);
-    border-color: rgba(58, 32, 16, 0.14);
+    border-color: rgba(58, 32, 16, 0.22);
   }
   &--support {
-    background: rgba(26, 26, 74, 0.08);
+    background: rgba(26, 26, 74, 0.14);
     color: var(--c-facet-support-text);
-    border-color: rgba(26, 26, 74, 0.14);
+    border-color: rgba(26, 26, 74, 0.22);
   }
   &--passive {
-    background: rgba(14, 46, 26, 0.08);
+    background: rgba(14, 46, 26, 0.14);
     color: var(--c-facet-passive-text);
-    border-color: rgba(14, 46, 26, 0.14);
+    border-color: rgba(14, 46, 26, 0.22);
   }
   &--ascendancy {
-    background: rgba(42, 16, 48, 0.08);
+    background: rgba(42, 16, 48, 0.14);
     color: var(--c-facet-ascendancy-text);
-    border-color: rgba(42, 16, 48, 0.14);
+    border-color: rgba(42, 16, 48, 0.22);
   }
   &--affix {
-    background: rgba(20, 20, 40, 0.08);
+    background: rgba(20, 20, 40, 0.14);
     color: var(--c-facet-affix-text);
-    border-color: rgba(20, 20, 40, 0.14);
+    border-color: rgba(20, 20, 40, 0.22);
   }
   &--unique {
-    background: rgba(74, 48, 16, 0.08);
+    background: rgba(74, 48, 16, 0.14);
     color: var(--c-unique-text);
     border-color: var(--c-unique-border);
   }
