@@ -1,0 +1,31 @@
+<div class="asc-dropdown" [class.open]="isOpen()">
+  <button class="asc-dropdown-trigger" (click)="toggle()" type="button">
+    <span class="asc-dropdown-label">{{ selectedLabel() }}</span>
+    <span class="asc-dropdown-chevron" [class.open]="isOpen()"></span>
+  </button>
+
+  @if (isOpen()) {
+    <div class="asc-dropdown-panel">
+      <div
+        class="asc-option asc-option--all"
+        [class.selected]="!selectedId()"
+        (click)="select(null)"
+      >
+        All Ascendancies
+      </div>
+
+      @for (group of groups(); track group.base_class) {
+        <div class="asc-group-label">{{ group.base_class }}</div>
+        @for (asc of group.ascendancies; track asc.id) {
+          <div
+            class="asc-option"
+            [class.selected]="selectedId() === asc.id"
+            (click)="select(asc.id)"
+          >
+            {{ asc.name }}
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

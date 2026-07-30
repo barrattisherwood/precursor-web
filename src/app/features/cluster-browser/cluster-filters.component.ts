@@ -8,6 +8,7 @@ import { ClusterService } from '../../shared/services/cluster.service';
 import { ClusterFilters } from '../../shared/types/cluster.types';
 import { Element } from '../../shared/types/element.types';
 import { environment } from '../../../environments/environment';
+import { AscendancyDropdownComponent } from '../../shared/components/ascendancy-dropdown/ascendancy-dropdown.component';
 
 const FACET_OPTIONS = [
   { value: null, label: 'All facets' },
@@ -28,7 +29,7 @@ const EDGE_TYPE_OPTIONS: { value: ClusterFilters['edgeType']; label: string }[] 
 
 @Component({
   selector: 'app-cluster-filters',
-  imports: [FormsModule, TitleCasePipe],
+  imports: [FormsModule, TitleCasePipe, AscendancyDropdownComponent],
   templateUrl: './cluster-filters.component.html',
   styleUrl: './cluster-filters.component.scss',
 })
@@ -110,8 +111,8 @@ export class ClusterFiltersComponent implements OnInit {
     this.store.updateFilter({ edgeType: value });
   }
 
-  setAscendancy(value: string): void {
-    this.store.updateFilter({ ascendancyClass: value || null });
+  setAscendancy(value: string | null): void {
+    this.store.updateFilter({ ascendancyClass: value });
   }
 
   toggleTag(tag: string): void {

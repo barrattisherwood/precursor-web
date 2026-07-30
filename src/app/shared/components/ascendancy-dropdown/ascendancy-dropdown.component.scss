@@ -1,0 +1,128 @@
+@use '../../../../styles/typography' as *;
+
+.asc-dropdown {
+  position: relative;
+  width: 220px;
+}
+
+.asc-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease;
+
+  &:hover {
+    border-color: var(--c-border-hover);
+    background: var(--c-raised);
+  }
+}
+
+.asc-dropdown.open .asc-dropdown-trigger {
+  border-color: var(--c-border-accent);
+  background: var(--c-raised);
+}
+
+.asc-dropdown-label {
+  font-family: $font-data;
+  font-size: 9px;
+  letter-spacing: $ls-micro;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.asc-dropdown.open .asc-dropdown-label,
+.asc-dropdown-trigger:hover .asc-dropdown-label {
+  color: var(--c-text-muted);
+}
+
+// Chevron — same rotate pattern as the filter bar chevron (§7 of design v3)
+.asc-dropdown-chevron {
+  width: 10px;
+  height: 7px;
+  position: relative;
+  flex-shrink: 0;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 1px;
+    background: var(--c-text-dim);
+    transition: transform 200ms ease, background 180ms ease;
+  }
+  &::before { left: 0; top: 3px; transform: rotate(-38deg); transform-origin: right center; }
+  &::after  { right: 0; top: 3px; transform: rotate(38deg);  transform-origin: left center; }
+
+  &.open::before { transform: rotate(38deg); }
+  &.open::after  { transform: rotate(-38deg); }
+}
+
+.asc-dropdown-trigger:hover .asc-dropdown-chevron::before,
+.asc-dropdown-trigger:hover .asc-dropdown-chevron::after,
+.asc-dropdown.open .asc-dropdown-chevron::before,
+.asc-dropdown.open .asc-dropdown-chevron::after {
+  background: var(--c-text-muted);
+}
+
+// Panel — same visual language as the filter-panel from §7
+.asc-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  right: 0;
+  max-height: 340px;
+  overflow-y: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-accent);
+  border-radius: 0;
+  z-index: 50;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: var(--c-border-accent); }
+}
+
+.asc-group-label {
+  font-family: $font-data;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--c-text-ghost);
+  text-transform: uppercase;
+  padding: 8px 12px 4px;
+  background: var(--c-base);
+}
+
+.asc-option {
+  font-family: $font-ui;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--c-text-secondary);
+  padding: 7px 12px 7px 20px;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+
+  &:hover {
+    background: rgba(80, 80, 140, 0.08);
+    color: var(--c-text-primary);
+  }
+
+  &.selected {
+    color: var(--c-accent);
+    background: rgba(80, 80, 140, 0.1);
+  }
+}
+
+.asc-option--all {
+  padding-left: 12px;
+  font-family: $font-data;
+  font-size: 9px;
+  letter-spacing: $ls-micro;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 2px;
+}
