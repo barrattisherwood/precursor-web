@@ -1,0 +1,213 @@
+@use '../../../styles/typography' as *;
+@use '../../../styles/layout' as *;
+
+.ir-page {
+  padding-top: $space-2xl;
+}
+
+.ir-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: $space-xl;
+}
+
+.ir-heading {
+  font-family: $font-display;
+  font-size: $text-display;
+  font-weight: 400;
+  color: var(--c-text-primary);
+  letter-spacing: $ls-heading;
+}
+
+.ir-tabs {
+  display: flex;
+  gap: 1px;
+}
+
+.ir-tab {
+  font-family: $font-data;
+  font-size: $text-label;
+  letter-spacing: $ls-label;
+  text-transform: uppercase;
+  padding: 6px $space-md;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease;
+
+  &:hover { border-color: var(--c-border-hover); color: var(--c-text-secondary); }
+  &.active { border-color: var(--c-accent-dim); color: var(--c-accent); }
+}
+
+.ir-error {
+  font-family: $font-data;
+  font-size: $text-label;
+  color: var(--c-danger);
+  border: 1px solid var(--c-danger);
+  background: rgba(90, 26, 26, 0.1);
+  padding: $space-sm $space-md;
+  margin-bottom: $space-lg;
+}
+
+.ir-batches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-bottom: $space-lg;
+}
+
+.ir-batch {
+  font-family: $font-ui;
+  font-size: $text-micro;
+  letter-spacing: $ls-label;
+  text-transform: uppercase;
+  padding: 6px $space-md;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+
+  &:hover { border-color: var(--c-border-hover); color: var(--c-text-secondary); }
+
+  &.active {
+    border-color: var(--c-accent-dim);
+    background: rgba(60, 60, 110, 0.12);
+    color: var(--c-accent);
+  }
+}
+
+.ir-empty {
+  font-family: $font-data;
+  font-size: $text-label;
+  color: var(--c-text-muted);
+  letter-spacing: $ls-data;
+  margin-top: $space-xl;
+}
+
+.ir-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: $space-lg;
+}
+
+.ir-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.ir-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-lg;
+}
+
+.ir-card-name {
+  font-family: $font-display;
+  font-size: $text-title;
+  color: var(--c-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.ir-card-score {
+  font-family: $font-display;
+  font-size: 18px;
+  color: var(--c-text-dim);
+  flex-shrink: 0;
+}
+
+.ir-verdict-group {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  flex-wrap: wrap;
+}
+
+.ir-verdict-label {
+  font-family: $font-data;
+  font-size: $text-nano;
+  letter-spacing: $ls-micro;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  width: 130px;
+  flex-shrink: 0;
+}
+
+.ir-btn-row {
+  display: flex;
+  gap: 1px;
+}
+
+.ir-vbtn {
+  font-family: $font-data;
+  font-size: $text-micro;
+  letter-spacing: $ls-data;
+  text-transform: uppercase;
+  padding: 5px $space-sm;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+
+  &:hover { border-color: var(--c-border-hover); color: var(--c-text-secondary); }
+
+  &.active {
+    border-color: var(--c-accent-dim);
+    background: rgba(60, 60, 110, 0.14);
+    color: var(--c-accent);
+  }
+}
+
+.ir-note {
+  font-family: $font-ui;
+  font-weight: 300;
+  font-size: $text-body;
+  color: var(--c-text-secondary);
+  background: transparent;
+  border: 1px solid var(--c-border);
+  padding: $space-sm;
+  min-height: 48px;
+  resize: vertical;
+  outline: none;
+
+  &::placeholder { color: var(--c-text-ghost); }
+  &:focus { border-color: var(--c-accent-dim); }
+}
+
+.ir-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  margin-top: $space-lg;
+}
+
+.ir-stat {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: $space-lg;
+  text-align: center;
+}
+
+.ir-stat-value {
+  font-family: $font-display;
+  font-size: 28px;
+  color: var(--c-text-primary);
+}
+
+.ir-stat-label {
+  font-family: $font-data;
+  font-size: $text-nano;
+  letter-spacing: $ls-micro;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin-top: 4px;
+}

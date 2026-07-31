@@ -39,5 +39,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/about/about.component').then(m => m.AboutComponent),
   },
+  {
+    path: 'internal/review',
+    loadComponent: () =>
+      import('./features/internal-review/cluster-review.component').then(
+        m => m.ClusterReviewComponent,
+      ),
+  },
   { path: '', redirectTo: 'clusters', pathMatch: 'full' },
 ];

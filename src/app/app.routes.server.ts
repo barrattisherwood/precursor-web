@@ -4,6 +4,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'explore', renderMode: RenderMode.Client },
   { path: 'economy', renderMode: RenderMode.Client },
   { path: 'about', renderMode: RenderMode.Client },
+  { path: 'internal/review', renderMode: RenderMode.Client },
   { path: 'clusters', renderMode: RenderMode.Server },
   { path: 'clusters/:id', renderMode: RenderMode.Server },
   { path: 'elements/:id', renderMode: RenderMode.Server },

@@ -1,0 +1,114 @@
+<div class="page-container ir-page">
+  <div class="ir-header">
+    <h1 class="ir-heading">Cluster Review</h1>
+    <div class="ir-tabs">
+      <button class="ir-tab" [class.active]="mode() === 'queue'" (click)="setMode('queue')">Queue</button>
+      <button class="ir-tab" [class.active]="mode() === 'summary'" (click)="setMode('summary')">Summary</button>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="ir-error">{{ error() }}</div>
+  }
+
+  @if (mode() === 'queue') {
+    <div class="ir-batches">
+      @for (key of batchKeys; track key) {
+        <button
+          class="ir-batch"
+          [class.active]="activeBatch() === key"
+          (click)="loadBatch(key)">
+          {{ batches[key].label }}
+        </button>
+      }
+    </div>
+
+    @if (loading()) {
+      <div class="loading-indicator"></div>
+    }
+
+    @if (!loading() && clusters().length === 0 && !error()) {
+      <p class="ir-empty">Nothing in this batch.</p>
+    }
+
+    <div class="ir-list">
+      @for (cluster of clusters(); track cluster._id) {
+        <div class="ir-card">
+          <div class="ir-card-header">
+            <div class="ir-card-name">{{ cluster.description || 'Synergy Cluster' }}</div>
+            <div class="ir-card-score">{{ cluster.hidden_score.toFixed(2) }}</div>
+          </div>
+
+          <div class="ir-verdict-group">
+            <span class="ir-verdict-label">Mechanically Accurate</span>
+            <div class="ir-btn-row">
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.mechanically_accurate === 'yes'" (click)="setMechanicallyAccurate(cluster, 'yes')">Yes</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.mechanically_accurate === 'no'" (click)="setMechanicallyAccurate(cluster, 'no')">No</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.mechanically_accurate === 'unsure'" (click)="setMechanicallyAccurate(cluster, 'unsure')">Unsure</button>
+            </div>
+          </div>
+
+          <div class="ir-verdict-group">
+            <span class="ir-verdict-label">Non-Obvious</span>
+            <div class="ir-btn-row">
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.non_obvious === 'yes'" (click)="setNonObvious(cluster, 'yes')">Yes</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.non_obvious === 'no'" (click)="setNonObvious(cluster, 'no')">No</button>
+            </div>
+          </div>
+
+          <div class="ir-verdict-group">
+            <span class="ir-verdict-label">Buildable</span>
+            <div class="ir-btn-row">
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.buildable === 'yes'" (click)="setBuildable(cluster, 'yes')">Yes</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.buildable === 'no'" (click)="setBuildable(cluster, 'no')">No</button>
+            </div>
+          </div>
+
+          <div class="ir-verdict-group">
+            <span class="ir-verdict-label">Score Feels</span>
+            <div class="ir-btn-row">
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.score_feels_right === 'too high'" (click)="setScoreFeel(cluster, 'too high')">Too High</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.score_feels_right === 'about right'" (click)="setScoreFeel(cluster, 'about right')">About Right</button>
+              <button class="ir-vbtn" [class.active]="cluster.verdict?.score_feels_right === 'too low'" (click)="setScoreFeel(cluster, 'too low')">Too Low</button>
+            </div>
+          </div>
+
+          <textarea
+            class="ir-note"
+            placeholder="Note…"
+            [value]="cluster.verdict?.note ?? ''"
+            (blur)="saveNote(cluster, $any($event.target).value)">
+          </textarea>
+        </div>
+      }
+    </div>
+  } @else {
+    @if (loading()) {
+      <div class="loading-indicator"></div>
+    }
+    @if (summary(); as s) {
+      <div class="ir-summary-stats">
+        <div class="ir-stat">
+          <div class="ir-stat-value">{{ s.stats.total }}</div>
+          <div class="ir-stat-label">Total Reviewed</div>
+        </div>
+        <div class="ir-stat">
+          <div class="ir-stat-value">{{ s.stats.mechanical_issues }}</div>
+          <div class="ir-stat-label">Mechanical Issues</div>
+        </div>
+        <div class="ir-stat">
+          <div class="ir-stat-value">{{ s.stats.too_obvious }}</div>
+          <div class="ir-stat-label">Too Obvious</div>
+        </div>
+        <div class="ir-stat">
+          <div class="ir-stat-value">{{ s.stats.unbuildable }}</div>
+          <div class="ir-stat-label">Unbuildable</div>
+        </div>
+        <div class="ir-stat">
+          <div class="ir-stat-value">{{ s.stats.score_mismatches }}</div>
+          <div class="ir-stat-label">Score Mismatches</div>
+        </div>
+      </div>
+    }
+  }
+</div>
