@@ -1,6 +1,6 @@
 {
   "framework": "angular",
-  "buildCommand": "npm run build -- --configuration=production",
+  "buildCommand": "node scripts/generate-env-secrets.js && npm run build -- --configuration=production",
   "outputDirectory": "dist/precursor-web/browser",
   "installCommand": "npm install",
   "rewrites": [
